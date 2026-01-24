@@ -11,6 +11,7 @@ use App\Http\Controllers\AdminController;
 // Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
 Route::view('/','pages.Dashboard');
 Route::view('/blog/list','pages.Listblog');
+Route::view('/blog/tambah','pages.Tambah');
 Route::view('/kategori','pages.Kategori');
 Route::view('/iklan','pages.Iklan');
 Route::view('/ejurnal','pages.Ejurnal');

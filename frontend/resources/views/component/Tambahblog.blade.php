@@ -1,4 +1,4 @@
-@extends('layout.app')
+@extends('layout.App')
 
 @section('title', 'Tambah Blog - Portal Blog')
 
