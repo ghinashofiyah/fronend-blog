@@ -12,6 +12,10 @@ use App\Http\Controllers\AdminController;
 Route::view('/','pages.Dashboard');
 Route::view('/blog/list','pages.Listblog');
 Route::view('/kategori','pages.Kategori');
+Route::view('/iklan','pages.Iklan');
+Route::view('/ejurnal','pages.Ejurnal');
+Route::view('/admin','pages.Admin');
+
 
 // Route::get('/blog/tambah', [BlogController::class, 'create'])->name('blog.tambah');
 // Route::get('/blog/list', [BlogController::class, 'index'])->name('blog.list');
