@@ -4,7 +4,7 @@
         <ul class="space-y-2 ">
 
             <li>
-                <a href="" 
+                <a href="/" 
                    class="menu-item flex items-center px-6 py-2.5 text-sm hover:bg-gray-100 transition-colors
                    {{ request()->routeIs('dashboard') ? 'bg-blue-50 text-blue-600 border-r-4 border-blue-600 rounded' : 'text-white' }}
                    group-[.collapsed]:justify-center group-[.collapsed]:px-2"> <i class="fas fa-house w-5 text-lg"></i>
@@ -36,7 +36,7 @@
                     group-[.collapsed]:hidden"> 
                     
                     <li>
-                        <a href="" 
+                        <a href="/blog/tambah" 
                            class="submenu-item flex items-center pl-14 pr-6 py-2 text-xs hover:text-blue-600 hover:bg-gray-100 hover:rounded
                            {{ request()->routeIs('blog.create') ? 'text-blue-600 font-bold' : 'text-white' }}">
                             <i class="fas fa-file-circle-plus w-4"></i>
@@ -44,7 +44,7 @@
                         </a>
                     </li>
                     <li>
-                        <a href="" 
+                        <a href="/blog/list" 
                            class="submenu-item flex items-center pl-14 pr-6 py-2 text-xs hover:text-blue-600 hover:bg-gray-100 hover:rounded
                            {{ request()->routeIs('blog.index') ? 'text-blue-600 font-bold' : 'text-white' }}">
                             <i class="fas fa-list-ul w-4"></i>
@@ -55,7 +55,7 @@
             </li>
 
             <li>
-                <a href="" 
+                <a href="/kategori" 
                    class="menu-item flex items-center px-6 py-2.5 text-sm hover:bg-gray-100 transition-colors hover:rounded
                    {{ request()->routeIs('kategori.*') ? 'bg-blue-50 text-blue-600 border-r-4 border-blue-600' : 'text-white' }}
                    group-[.collapsed]:justify-center group-[.collapsed]:px-2">
@@ -66,7 +66,7 @@
             </li>
 
             <li>
-                <a href="" 
+                <a href="/iklan" 
                    class="menu-item flex items-center px-6 py-2.5 text-sm hover:bg-gray-100 transition-colors hover:rounded
                    {{ request()->routeIs('iklan.*') ? 'bg-blue-50 text-blue-600 border-r-4 border-blue-600' : 'text-white' }}
                    group-[.collapsed]:justify-center group-[.collapsed]:px-2">
@@ -77,7 +77,7 @@
             </li>
 
             <li>
-                <a href="" 
+                <a href="/ejurnal" 
                    class="menu-item flex items-center px-6 py-2.5 text-sm hover:bg-gray-100 transition-colors hover:rounded
                    {{ request()->routeIs('ejurnal.*') ? 'bg-blue-50 text-blue-600 border-r-4 border-blue-600' : 'text-white' }}
                    group-[.collapsed]:justify-center group-[.collapsed]:px-2">
@@ -88,7 +88,7 @@
             </li>
 
             <li>
-                <a href="" 
+                <a href="/admin" 
                    class="menu-item flex items-center px-6 py-2.5 text-sm hover:bg-gray-100 transition-colors hover:rounded
                    {{ request()->routeIs('users.*') ? 'bg-blue-50 text-blue-600 border-r-4 border-blue-600' : 'text-white' }}
                    group-[.collapsed]:justify-center group-[.collapsed]:px-2">
