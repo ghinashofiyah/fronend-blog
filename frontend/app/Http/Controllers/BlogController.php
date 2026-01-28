@@ -15,6 +15,12 @@ class BlogController extends Controller
     
     public function create()
     {
-        return view('component.blog.tambah');
+        return view('pages.Tambahblog');
+    }
+
+    public function store(Request $request)
+    {
+        // Handle the blog post creation logic here
+        return redirect()->route('blog.list');
     }
 }
