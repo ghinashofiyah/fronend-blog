@@ -21,6 +21,7 @@ class BlogController extends Controller
     public function store(Request $request)
     {
         // Handle the blog post creation logic here
-        return redirect()->route('blog.list');
+        dd($request->all());
+        // return redirect()->route('blog.list');
     }
 }

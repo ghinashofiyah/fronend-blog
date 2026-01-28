@@ -4,12 +4,6 @@
 
 @section('content')
 
-<!DOCTYPE html>
-<html lang="id">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>List Blog - Portal Blog</title>
     <style>
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -281,7 +275,8 @@
 <body>
     <div class="header">
         <h1 class="title">📚 List Blog</h1>
-        <button class="btn-add">➕ Tambah Blog</button>
+        <!-- <button class="btn-add">➕ Tambah Blog</button> -->
+        <a href="{{ route('blog.tambah') }}"><button class="btn-add">➕ Tambah Blog</button></a>
     </div>
 
     <div class="table-container">
@@ -323,75 +318,7 @@
                         </div>
                     </td>
                 </tr>
-                <tr>
-                    <td style="font-weight: 600; color: #4a5568;">2</td>
-                    <td style="font-weight: 500; color: #2d3748;">Tips Optimasi Website</td>
-                    <td><span class="badge badge-webdev">Web Dev</span></td>
-                    <td style="color: #4a5568;">Admin</td>
-                    <td style="color: #718096;">08/01/2026</td>
-                    <td style="font-weight: 500; color: #4a5568;">👁 7,340</td>
-                    <td style="text-align: center;">
-                        <div class="dropdown">
-                            <button class="menu-btn" onclick="toggleDropdown(2)">⋮</button>
-                            <div id="dropdown-2" class="dropdown-menu">
-                                <a href="#" class="dropdown-item">📝 Edit</a>
-                                <a href="#" class="dropdown-item delete" onclick="confirmDelete(2)">🗑️ Hapus</a>
-                            </div>
-                        </div>
-                    </td>
-                </tr>
-                <tr>
-                    <td style="font-weight: 600; color: #4a5568;">3</td>
-                    <td style="font-weight: 500; color: #2d3748;">Mengenal Chart.js dalam 10 Menit</td>
-                    <td><span class="badge badge-js">JavaScript</span></td>
-                    <td style="color: #4a5568;">Admin</td>
-                    <td style="color: #718096;">05/01/2026</td>
-                    <td style="font-weight: 500; color: #4a5568;">👁 890</td>
-                    <td style="text-align: center;">
-                        <div class="dropdown">
-                            <button class="menu-btn" onclick="toggleDropdown(3)">⋮</button>
-                            <div id="dropdown-3" class="dropdown-menu">
-                                <a href="#" class="dropdown-item">📝 Edit</a>
-                                <a href="#" class="dropdown-item delete" onclick="confirmDelete(3)">🗑️ Hapus</a>
-                            </div>
-                        </div>
-                    </td>
-                </tr>
-                <tr>
-                    <td style="font-weight: 600; color: #4a5568;">4</td>
-                    <td style="font-weight: 500; color: #2d3748;">Cara Membuat REST API dengan Laravel</td>
-                    <td><span class="badge badge-backend">Backend</span></td>
-                    <td style="color: #4a5568;">Admin</td>
-                    <td style="color: #718096;">03/01/2026</td>
-                    <td style="font-weight: 500; color: #4a5568;">👁 4,560</td>
-                    <td style="text-align: center;">
-                        <div class="dropdown">
-                            <button class="menu-btn" onclick="toggleDropdown(4)">⋮</button>
-                            <div id="dropdown-4" class="dropdown-menu">
-                                <a href="#" class="dropdown-item">📝 Edit</a>
-                                <a href="#" class="dropdown-item delete" onclick="confirmDelete(4)">🗑️ Hapus</a>
-                            </div>
-                        </div>
-                    </td>
-                </tr>
-                <tr>
-                    <td style="font-weight: 600; color: #4a5568;">5</td>
-                    <td style="font-weight: 500; color: #2d3748;">Design Pattern dalam PHP</td>
-                    <td><span class="badge badge-php">PHP</span></td>
-                    <td style="color: #4a5568;">Admin</td>
-                    <td style="color: #718096;">01/01/2026</td>
-                    <td style="font-weight: 500; color: #4a5568;">👁 1,000</td>
-                    <td style="text-align: center;">
-                        <div class="dropdown">
-                            <button class="menu-btn" onclick="toggleDropdown(5)">⋮</button>
-                            <div id="dropdown-5" class="dropdown-menu">
-                                <a href="#" class="dropdown-item">📝 Edit</a>
-                                <a href="#" class="dropdown-item delete" onclick="confirmDelete(5)">🗑️ Hapus</a>
-                            </div>
-                        </div>
-                    </td>
-                </tr>
-            </tbody>
+           </tbody>
         </table>
     </div>
 
@@ -485,7 +412,5 @@
             }
         });
     </script>
-</body>
-</html>
 
 @endsection
