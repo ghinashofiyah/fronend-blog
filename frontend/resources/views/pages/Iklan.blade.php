@@ -114,7 +114,7 @@
             <i class="fas fa-image"></i>
             Gambar Iklan
           </label>
-          <div class="flex items-center gap-3">
+          <div class="relative">
             <input 
               type="file" 
               id="inputGambar" 
@@ -122,13 +122,18 @@
               class="hidden"
               onchange="previewGambar(event)"
             >
-            <label for="inputGambar" class="flex-1 px-4 py-3 rounded-xl text-base cursor-pointer transition-all flex items-center justify-center gap-2 font-medium" style="border: 2px solid #4988C4; color: #4988C4; background-color: #ffffff;" onmouseover="this.style.backgroundColor='rgba(73, 136, 196, 0.1)'" onmouseout="this.style.backgroundColor='#ffffff'">
+            <label id="labelPilihGambar" for="inputGambar" class="block w-full px-4 py-3 rounded-xl text-base cursor-pointer transition-all text-center font-medium" style="border: 2px solid #4988C4; color: #4988C4; background-color: #ffffff;" onmouseover="this.style.backgroundColor='rgba(73, 136, 196, 0.1)'" onmouseout="this.style.backgroundColor='#ffffff'">
               <i class="fas fa-cloud-upload-alt text-xl"></i>
-              <span id="namaFile">Pilih gambar</span>
+              <span class="ml-2">Pilih gambar</span>
             </label>
-          </div>
-          <div id="previewContainer" class="hidden mt-4">
-            <img id="previewImage" class="w-full h-48 object-cover rounded-xl shadow-lg" style="border: 2px solid #4988C4;">
+            <div id="previewContainer" class="hidden">
+              <div class="relative">
+                <img id="previewImage" class="w-full h-48 object-cover rounded-xl shadow-lg" style="border: 2px solid #4988C4;">
+                <button type="button" onclick="hapusGambar()" class="absolute top-2 right-2 bg-red-500 hover:bg-red-600 text-white rounded-full w-8 h-8 flex items-center justify-center shadow-lg transition-all">
+                  <i class="fas fa-times"></i>
+                </button>
+              </div>
+            </div>
           </div>
         </div>
 
@@ -163,7 +168,7 @@
               <th class="px-6 py-4 font-bold text-base">Tipe</th>
               <th class="px-6 py-4 font-bold text-base">Link</th>
               <th class="px-6 py-4 font-bold text-base">Gambar</th>
-              <th class="px-6 py-4 font-bold text-base">Aksi</th>
+              <th class="px-6 py-4 font-bold text-base" colspan="2">Aksi</th>
             </tr>
           </thead>
           <tbody id="tabelIklan">
@@ -183,10 +188,12 @@
                 <img src="https://picsum.photos/seed/1/120/80" class="rounded-lg object-cover shadow-md hover:shadow-xl transition-all w-[140px] h-[90px]" />
               </td>
               <td class="px-6 py-5 text-center" style="border-bottom: 1px solid #4988C4;">
-                <button onclick="editIklan(this, 'Pemerintah Resmi Naikkan UMK 2026', '3:1 Tengah', 'https://berita.com/1')" class="bg-gradient-to-r from-blue-500 to-cyan-500 hover:from-blue-600 hover:to-cyan-600 text-white px-4 py-2 rounded-lg font-semibold mr-2 shadow-md hover:shadow-lg transition-all">
+                <button onclick="editIklan(this, 'Pemerintah Resmi Naikkan UMK 2026', '3:1 Tengah', 'https://berita.com/1')" class="text-white px-4 py-2 rounded-lg font-semibold shadow-md hover:shadow-lg transition-all" style="background-color: #4988C4;" onmouseover="this.style.backgroundColor='#3a6ea0'" onmouseout="this.style.backgroundColor='#4988C4'">
                   <i class="fas fa-edit"></i>
                 </button>
-                <button onclick="hapusIklan(this)" class="bg-gradient-to-r from-red-500 to-pink-500 hover:from-red-600 hover:to-pink-600 text-white px-4 py-2 rounded-lg font-semibold shadow-md hover:shadow-lg transition-all">
+              </td>
+              <td class="px-6 py-5 text-center" style="border-bottom: 1px solid #4988C4;">
+                <button onclick="hapusIklan(this)" class="text-white px-4 py-2 rounded-lg font-semibold shadow-md hover:shadow-lg transition-all" style="background-color: #dc2626;" onmouseover="this.style.backgroundColor='#b91c1c'" onmouseout="this.style.backgroundColor='#dc2626'">
                   <i class="fas fa-trash"></i>
                 </button>
               </td>
@@ -207,10 +214,12 @@
                 <img src="https://picsum.photos/seed/2/120/80" class="rounded-lg object-cover shadow-md hover:shadow-xl transition-all w-[140px] h-[90px]" />
               </td>
               <td class="px-6 py-5 text-center" style="border-bottom: 1px solid #4988C4;">
-                <button onclick="editIklan(this, 'Harga BBM Terbaru Berlaku Nasional', '1:1 Slide', 'https://berita.com/2')" class="bg-gradient-to-r from-blue-500 to-cyan-500 hover:from-blue-600 hover:to-cyan-600 text-white px-4 py-2 rounded-lg font-semibold mr-2 shadow-md hover:shadow-lg transition-all">
+                <button onclick="editIklan(this, 'Harga BBM Terbaru Berlaku Nasional', '1:1 Slide', 'https://berita.com/2')" class="text-white px-4 py-2 rounded-lg font-semibold shadow-md hover:shadow-lg transition-all" style="background-color: #4988C4;" onmouseover="this.style.backgroundColor='#3a6ea0'" onmouseout="this.style.backgroundColor='#4988C4'">
                   <i class="fas fa-edit"></i>
                 </button>
-                <button onclick="hapusIklan(this)" class="bg-gradient-to-r from-red-500 to-pink-500 hover:from-red-600 hover:to-pink-600 text-white px-4 py-2 rounded-lg font-semibold shadow-md hover:shadow-lg transition-all">
+              </td>
+              <td class="px-6 py-5 text-center" style="border-bottom: 1px solid #4988C4;">
+                <button onclick="hapusIklan(this)" class="text-white px-4 py-2 rounded-lg font-semibold shadow-md hover:shadow-lg transition-all" style="background-color: #dc2626;" onmouseover="this.style.backgroundColor='#b91c1c'" onmouseout="this.style.backgroundColor='#dc2626'">
                   <i class="fas fa-trash"></i>
                 </button>
               </td>
@@ -231,10 +240,12 @@
                 <img src="https://picsum.photos/seed/3/120/80" class="rounded-lg object-cover shadow-md hover:shadow-xl transition-all w-[140px] h-[90px]" />
               </td>
               <td class="px-6 py-5 text-center" style="border-bottom: 1px solid #4988C4;">
-                <button onclick="editIklan(this, 'Timnas Indonesia Lolos Piala Asia', '3:1 Kanan', 'https://berita.com/3')" class="bg-gradient-to-r from-blue-500 to-cyan-500 hover:from-blue-600 hover:to-cyan-600 text-white px-4 py-2 rounded-lg font-semibold mr-2 shadow-md hover:shadow-lg transition-all">
+                <button onclick="editIklan(this, 'Timnas Indonesia Lolos Piala Asia', '3:1 Kanan', 'https://berita.com/3')" class="text-white px-4 py-2 rounded-lg font-semibold shadow-md hover:shadow-lg transition-all" style="background-color: #4988C4;" onmouseover="this.style.backgroundColor='#3a6ea0'" onmouseout="this.style.backgroundColor='#4988C4'">
                   <i class="fas fa-edit"></i>
                 </button>
-                <button onclick="hapusIklan(this)" class="bg-gradient-to-r from-red-500 to-pink-500 hover:from-red-600 hover:to-pink-600 text-white px-4 py-2 rounded-lg font-semibold shadow-md hover:shadow-lg transition-all">
+              </td>
+              <td class="px-6 py-5 text-center" style="border-bottom: 1px solid #4988C4;">
+                <button onclick="hapusIklan(this)" class="text-white px-4 py-2 rounded-lg font-semibold shadow-md hover:shadow-lg transition-all" style="background-color: #dc2626;" onmouseover="this.style.backgroundColor='#b91c1c'" onmouseout="this.style.backgroundColor='#dc2626'">
                   <i class="fas fa-trash"></i>
                 </button>
               </td>
@@ -280,8 +291,23 @@
       </div>
 
       <div>
-        <label class="block text-sm font-bold mb-3" style="color: #4988C4;">Gambar Baru (opsional)</label>
-        <input type="file" id="modalGambar" accept="image/*" class="w-full text-base rounded-xl px-4 py-3" style="border: 2px solid #4988C4; background-color: #ffffff;" />
+          <label class="block text-sm font-bold mb-3" style="color: #4988C4;">Gambar</label>
+          <div class="flex items-center gap-3">
+              <input 
+                  type="file" 
+                  id="editInputGambar" 
+                  accept="image/*"
+                  class="hidden"
+                  onchange="previewEditGambar(event)"
+              >
+              <label for="editInputGambar" class="flex-1 px-4 py-3 rounded-xl text-base cursor-pointer transition-all flex items-center justify-center gap-2 font-medium" style="border: 2px solid #4988C4; color: #4988C4; background-color: #ffffff;" onmouseover="this.style.backgroundColor='rgba(73, 136, 196, 0.1)'" onmouseout="this.style.backgroundColor='#ffffff'">
+                  <i class="fas fa-image"></i>
+                  <span>Ganti gambar</span>
+              </label>
+          </div>
+          <div id="editPreviewContainer" class="mt-4">
+              <img id="editPreviewImage" class="w-full h-40 object-cover rounded-xl shadow-lg" style="border: 2px solid #4988C4;">
+          </div>
       </div>
 
       <div class="pt-4 flex justify-end gap-3">
@@ -313,14 +339,21 @@
   function previewGambar(event) {
     const file = event.target.files[0];
     if (file) {
-      document.getElementById('namaFile').textContent = file.name;
       const reader = new FileReader();
       reader.onload = function(e) {
         document.getElementById('previewImage').src = e.target.result;
+        document.getElementById('labelPilihGambar').classList.add('hidden');
         document.getElementById('previewContainer').classList.remove('hidden');
       }
       reader.readAsDataURL(file);
     }
+  }
+
+  function hapusGambar() {
+    document.getElementById('inputGambar').value = '';
+    document.getElementById('previewImage').src = '';
+    document.getElementById('labelPilihGambar').classList.remove('hidden');
+    document.getElementById('previewContainer').classList.add('hidden');
   }
 
   function tambahIklan() {
@@ -358,21 +391,21 @@
       <td class="px-6 py-5" style="border-bottom: 1px solid #4988C4;">
         <img src="${URL.createObjectURL(gambar)}" class="rounded-lg object-cover shadow-md hover:shadow-xl transition-all w-[140px] h-[90px]" />
       </td>
-      <td class="py-4 px-4 text-center">
-          <button onclick="editJurnal(${jurnalCounter}, '${judul}', '${deskripsi}', '${userName}', '${currentImage}')" class="text-white px-4 py-2 rounded-lg font-semibold shadow-md hover:shadow-lg transition-all" style="background-color: #4988C4;" onmouseover="this.style.backgroundColor='#3a6ea0'" onmouseout="this.style.backgroundColor='#4988C4'">
-              <i class="fas fa-edit"></i>
-          </button>
+      <td class="px-6 py-5 text-center" style="border-bottom: 1px solid #4988C4;">
+        <button onclick="editIklan(this, '${judul}', '${tipe}', '${link}')" class="text-white px-4 py-2 rounded-lg font-semibold shadow-md hover:shadow-lg transition-all" style="background-color: #4988C4;" onmouseover="this.style.backgroundColor='#3a6ea0'" onmouseout="this.style.backgroundColor='#4988C4'">
+          <i class="fas fa-edit"></i>
+        </button>
       </td>
-      <td class="py-4 px-4 text-center">
-          <button onclick="hapusJurnal(${jurnalCounter})" class="text-white px-4 py-2 rounded-lg font-semibold shadow-md hover:shadow-lg transition-all" style="background-color: #dc2626;" onmouseover="this.style.backgroundColor='#b91c1c'" onmouseout="this.style.backgroundColor='#dc2626'">
-              <i class="fas fa-trash"></i>
-          </button>
+      <td class="px-6 py-5 text-center" style="border-bottom: 1px solid #4988C4;">
+        <button onclick="hapusIklan(this)" class="text-white px-4 py-2 rounded-lg font-semibold shadow-md hover:shadow-lg transition-all" style="background-color: #dc2626;" onmouseover="this.style.backgroundColor='#b91c1c'" onmouseout="this.style.backgroundColor='#dc2626'">
+          <i class="fas fa-trash"></i>
+        </button>
       </td>
     `;
     tbody.appendChild(tr);
 
     document.getElementById('formTambah').reset();
-    document.getElementById('namaFile').textContent = 'Pilih gambar';
+    document.getElementById('labelPilihGambar').classList.remove('hidden');
     document.getElementById('previewContainer').classList.add('hidden');
     
     showSuccess('Iklan berhasil ditambahkan!');
@@ -384,11 +417,26 @@
     document.getElementById('modalJudul').value = judul;
     document.getElementById('modalTipe').value = tipe;
     document.getElementById('modalLink').value = link;
+    
+    // Show current image in modal
+    const imgSrc = currentRow.cells[4].querySelector('img').src;
+    document.getElementById('editPreviewImage').src = imgSrc;
   }
 
   function closeModal() {
     document.getElementById('modal').classList.add('hidden');
     currentRow = null;
+  }
+
+  function previewEditGambar(event) {
+    const file = event.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = function(e) {
+        document.getElementById('editPreviewImage').src = e.target.result;
+      }
+      reader.readAsDataURL(file);
+    }
   }
 
   function simpanEdit() {
@@ -397,7 +445,7 @@
     const judul = document.getElementById('modalJudul').value.trim();
     const tipe = document.getElementById('modalTipe').value;
     const link = document.getElementById('modalLink').value.trim();
-    const gambarFile = document.getElementById('modalGambar').files[0];
+    const gambarFile = document.getElementById('editInputGambar').files[0];
     
     if (!judul || !tipe || !link) {
       alert('⚠️ Semua field harus diisi!');
@@ -424,6 +472,9 @@
       };
       reader.readAsDataURL(gambarFile);
     }
+    
+    // Update onclick handler for edit button (now in cell 5)
+    currentRow.cells[5].querySelector('button').setAttribute('onclick', `editIklan(this, '${judul}', '${tipe}', '${link}')`);
     
     closeModal();
     showSuccess('Iklan berhasil diupdate!');

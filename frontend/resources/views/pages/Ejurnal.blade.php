@@ -88,7 +88,7 @@
                         </label>
                         <textarea 
                             id="inputDeskripsi" 
-                            rows="3"
+                            rows="1"
                             placeholder="Masukkan deskripsi jurnal" 
                             class="w-full px-4 py-3 rounded-xl outline-none transition-all text-base resize-none"
                             style="border: 2px solid #4988C4; background-color: #ffffff;"
@@ -118,7 +118,7 @@
                             <i class="fas fa-image"></i>
                             Gambar
                         </label>
-                        <div class="flex items-center gap-3">
+                        <div class="relative">
                             <input 
                                 type="file" 
                                 id="inputGambar" 
@@ -126,13 +126,18 @@
                                 class="hidden"
                                 onchange="previewGambar(event)"
                             >
-                            <label for="inputGambar" class="flex-1 px-4 py-3 rounded-xl text-base cursor-pointer transition-all flex items-center justify-center gap-2 font-medium" style="border: 2px solid #4988C4; color: #4988C4; background-color: #ffffff;" onmouseover="this.style.backgroundColor='rgba(73, 136, 196, 0.1)'" onmouseout="this.style.backgroundColor='#ffffff'">
+                            <label id="labelPilihGambar" for="inputGambar" class="block w-full px-4 py-3 rounded-xl text-base cursor-pointer transition-all text-center font-medium" style="border: 2px solid #4988C4; color: #4988C4; background-color: #ffffff;" onmouseover="this.style.backgroundColor='rgba(73, 136, 196, 0.1)'" onmouseout="this.style.backgroundColor='#ffffff'">
                                 <i class="fas fa-cloud-upload-alt text-xl"></i>
-                                <span id="namaFile">Pilih gambar</span>
+                                <span class="ml-2">Pilih gambar</span>
                             </label>
-                        </div>
-                        <div id="previewContainer" class="hidden mt-3">
-                            <img id="previewImage" class="w-full h-32 object-cover rounded-xl shadow-lg" style="border: 2px solid #4988C4;">
+                            <div id="previewContainer" class="hidden">
+                                <div class="relative">
+                                    <img id="previewImage" class="w-full h-32 object-cover rounded-xl shadow-lg" style="border: 2px solid #4988C4;">
+                                    <button type="button" onclick="hapusGambar()" class="absolute top-2 right-2 bg-red-500 hover:bg-red-600 text-white rounded-full w-8 h-8 flex items-center justify-center shadow-lg transition-all">
+                                        <i class="fas fa-times"></i>
+                                    </button>
+                                </div>
+                            </div>
                         </div>
                     </div>
                     
@@ -165,8 +170,7 @@
                                 <th class="text-left py-4 px-4 font-bold text-white text-base min-w-[200px]">Deskripsi</th>
                                 <th class="text-left py-4 px-4 font-bold text-white text-base min-w-[120px]">Nama Pengguna</th>
                                 <th class="text-center py-4 px-4 font-bold text-white text-base">Gambar</th>
-                                <th class="text-center py-4 px-4 font-bold text-white text-base">Edit</th>
-                                <th class="text-center py-4 px-4 font-bold text-white text-base">Hapus</th>
+                                <th class="text-center py-4 px-4 font-bold text-white text-base">Aksi</th>
                             </tr>
                         </thead>
                         <tbody id="tabelJurnal" style="background-color: #ffffff;">
@@ -197,14 +201,14 @@
                                     </div>
                                 </td>
                                 <td class="py-4 px-4 text-center">
-                                    <button onclick="editJurnal(1, 'Penelitian AI', 'Studi implementasi AI dalam pendidikan modern. Analisis penggunaan machine learning untuk personalisasi pembelajaran. Evaluasi efektivitas chatbot AI sebagai asisten pengajaran.', 'John Doe', 'https://via.placeholder.com/400x300/4988C4/ffffff?text=AI+Education')" class="text-white px-4 py-2 rounded-lg font-semibold shadow-md hover:shadow-lg transition-all" style="background-color: #4988C4;" onmouseover="this.style.backgroundColor='#3a6ea0'" onmouseout="this.style.backgroundColor='#4988C4'">
-                                        <i class="fas fa-edit"></i>
-                                    </button>
-                                </td>
-                                <td class="py-4 px-4 text-center">
-                                    <button onclick="hapusJurnal(1)" class="text-white px-4 py-2 rounded-lg font-semibold shadow-md hover:shadow-lg transition-all" style="background-color: #dc2626;" onmouseover="this.style.backgroundColor='#b91c1c'" onmouseout="this.style.backgroundColor='#dc2626'">
-                                        <i class="fas fa-trash"></i>
-                                    </button>
+                                    <div class="flex gap-2 justify-center">
+                                        <button onclick="editJurnal(1, 'Penelitian AI', 'Studi implementasi AI dalam pendidikan modern. Analisis penggunaan machine learning untuk personalisasi pembelajaran. Evaluasi efektivitas chatbot AI sebagai asisten pengajaran.', 'John Doe', 'https://via.placeholder.com/400x300/4988C4/ffffff?text=AI+Education')" class="text-white px-4 py-2 rounded-lg font-semibold shadow-md hover:shadow-lg transition-all" style="background-color: #4988C4;" onmouseover="this.style.backgroundColor='#3a6ea0'" onmouseout="this.style.backgroundColor='#4988C4'">
+                                            <i class="fas fa-edit"></i>
+                                        </button>
+                                        <button onclick="hapusJurnal(1)" class="text-white px-4 py-2 rounded-lg font-semibold shadow-md hover:shadow-lg transition-all" style="background-color: #dc2626;" onmouseover="this.style.backgroundColor='#b91c1c'" onmouseout="this.style.backgroundColor='#dc2626'">
+                                            <i class="fas fa-trash"></i>
+                                        </button>
+                                    </div>
                                 </td>
                             </tr>
                             <tr class="transition-colors" id="jurnal-2" style="background-color: #ffffff; border-bottom: 1px solid #4988C4;" onmouseover="this.style.backgroundColor='rgba(73, 136, 196, 0.1)'" onmouseout="this.style.backgroundColor='#ffffff'">
@@ -231,14 +235,14 @@
                                     </div>
                                 </td>
                                 <td class="py-4 px-4 text-center">
-                                    <button onclick="editJurnal(2, 'Machine Learning', 'Analisis prediktif menggunakan algoritma ML. Penerapan neural network untuk pattern recognition. Optimasi model dengan deep learning techniques.', 'Jane Smith', 'https://via.placeholder.com/400x300/4988C4/ffffff?text=ML+Prediction')" class="text-white px-4 py-2 rounded-lg font-semibold shadow-md hover:shadow-lg transition-all" style="background-color: #4988C4;" onmouseover="this.style.backgroundColor='#3a6ea0'" onmouseout="this.style.backgroundColor='#4988C4'">
-                                        <i class="fas fa-edit"></i>
-                                    </button>
-                                </td>
-                                <td class="py-4 px-4 text-center">
-                                    <button onclick="hapusJurnal(2)" class="text-white px-4 py-2 rounded-lg font-semibold shadow-md hover:shadow-lg transition-all" style="background-color: #dc2626;" onmouseover="this.style.backgroundColor='#b91c1c'" onmouseout="this.style.backgroundColor='#dc2626'">
-                                        <i class="fas fa-trash"></i>
-                                    </button>
+                                    <div class="flex gap-2 justify-center">
+                                        <button onclick="editJurnal(2, 'Machine Learning', 'Analisis prediktif menggunakan algoritma ML. Penerapan neural network untuk pattern recognition. Optimasi model dengan deep learning techniques.', 'Jane Smith', 'https://via.placeholder.com/400x300/4988C4/ffffff?text=ML+Prediction')" class="text-white px-4 py-2 rounded-lg font-semibold shadow-md hover:shadow-lg transition-all" style="background-color: #4988C4;" onmouseover="this.style.backgroundColor='#3a6ea0'" onmouseout="this.style.backgroundColor='#4988C4'">
+                                            <i class="fas fa-edit"></i>
+                                        </button>
+                                        <button onclick="hapusJurnal(2)" class="text-white px-4 py-2 rounded-lg font-semibold shadow-md hover:shadow-lg transition-all" style="background-color: #dc2626;" onmouseover="this.style.backgroundColor='#b91c1c'" onmouseout="this.style.backgroundColor='#dc2626'">
+                                            <i class="fas fa-trash"></i>
+                                        </button>
+                                    </div>
                                 </td>
                             </tr>
                             <tr class="transition-colors" id="jurnal-3" style="background-color: #ffffff; border-bottom: 1px solid #4988C4;" onmouseover="this.style.backgroundColor='rgba(73, 136, 196, 0.1)'" onmouseout="this.style.backgroundColor='#ffffff'">
@@ -268,14 +272,14 @@
                                     </div>
                                 </td>
                                 <td class="py-4 px-4 text-center">
-                                    <button onclick="editJurnal(3, 'Data Science', 'Pengolahan big data untuk analisis bisnis. Visualisasi data dengan tools modern seperti Tableau. Implementasi data mining untuk customer insights.', 'Bob Johnson', 'https://via.placeholder.com/400x300/4988C4/ffffff?text=Big+Data')" class="text-white px-4 py-2 rounded-lg font-semibold shadow-md hover:shadow-lg transition-all" style="background-color: #4988C4;" onmouseover="this.style.backgroundColor='#3a6ea0'" onmouseout="this.style.backgroundColor='#4988C4'">
-                                        <i class="fas fa-edit"></i>
-                                    </button>
-                                </td>
-                                <td class="py-4 px-4 text-center">
-                                    <button onclick="hapusJurnal(3)" class="text-white px-4 py-2 rounded-lg font-semibold shadow-md hover:shadow-lg transition-all" style="background-color: #dc2626;" onmouseover="this.style.backgroundColor='#b91c1c'" onmouseout="this.style.backgroundColor='#dc2626'">
-                                        <i class="fas fa-trash"></i>
-                                    </button>
+                                    <div class="flex gap-2 justify-center">
+                                        <button onclick="editJurnal(3, 'Data Science', 'Pengolahan big data untuk analisis bisnis. Visualisasi data dengan tools modern seperti Tableau. Implementasi data mining untuk customer insights.', 'Bob Johnson', 'https://via.placeholder.com/400x300/4988C4/ffffff?text=Big+Data')" class="text-white px-4 py-2 rounded-lg font-semibold shadow-md hover:shadow-lg transition-all" style="background-color: #4988C4;" onmouseover="this.style.backgroundColor='#3a6ea0'" onmouseout="this.style.backgroundColor='#4988C4'">
+                                            <i class="fas fa-edit"></i>
+                                        </button>
+                                        <button onclick="hapusJurnal(3)" class="text-white px-4 py-2 rounded-lg font-semibold shadow-md hover:shadow-lg transition-all" style="background-color: #dc2626;" onmouseover="this.style.backgroundColor='#b91c1c'" onmouseout="this.style.backgroundColor='#dc2626'">
+                                            <i class="fas fa-trash"></i>
+                                        </button>
+                                    </div>
                                 </td>
                             </tr>
                         </tbody>
@@ -382,15 +386,23 @@
         function previewGambar(event) {
             const file = event.target.files[0];
             if (file) {
-                document.getElementById('namaFile').textContent = file.name;
                 const reader = new FileReader();
                 reader.onload = function(e) {
                     currentImage = e.target.result;
                     document.getElementById('previewImage').src = e.target.result;
+                    document.getElementById('labelPilihGambar').classList.add('hidden');
                     document.getElementById('previewContainer').classList.remove('hidden');
                 };
                 reader.readAsDataURL(file);
             }
+        }
+
+        function hapusGambar() {
+            document.getElementById('inputGambar').value = '';
+            document.getElementById('previewImage').src = '';
+            document.getElementById('labelPilihGambar').classList.remove('hidden');
+            document.getElementById('previewContainer').classList.add('hidden');
+            currentImage = null;
         }
 
         function previewEditGambar(event) {
@@ -442,14 +454,14 @@
                     </button>
                 </td>
                 <td class="py-4 px-4 text-center">
-                    <button onclick="editJurnal(${jurnalCounter}, '${judul}', '${deskripsi}', '${userName}', '${currentImage}')" class="text-white px-4 py-2 rounded-lg font-semibold shadow-md hover:shadow-lg transition-all" style="background-color: #4988C4;" onmouseover="this.style.backgroundColor='#3a6ea0'" onmouseout="this.style.backgroundColor='#4988C4'">
-                        <i class="fas fa-edit"></i>
-                    </button>
-                </td>
-                <td class="py-4 px-4 text-center">
-                    <button onclick="hapusJurnal(${jurnalCounter})" class="text-white px-4 py-2 rounded-lg font-semibold shadow-md hover:shadow-lg transition-all" style="background-color: #dc2626;" onmouseover="this.style.backgroundColor='#b91c1c'" onmouseout="this.style.backgroundColor='#dc2626'">
-                        <i class="fas fa-trash"></i>
-                    </button>
+                    <div class="flex gap-2 justify-center">
+                        <button onclick="editJurnal(${jurnalCounter}, '${judul}', '${deskripsi}', '${userName}', '${currentImage}')" class="text-white px-4 py-2 rounded-lg font-semibold shadow-md hover:shadow-lg transition-all" style="background-color: #4988C4;" onmouseover="this.style.backgroundColor='#3a6ea0'" onmouseout="this.style.backgroundColor='#4988C4'">
+                            <i class="fas fa-edit"></i>
+                        </button>
+                        <button onclick="hapusJurnal(${jurnalCounter})" class="text-white px-4 py-2 rounded-lg font-semibold shadow-md hover:shadow-lg transition-all" style="background-color: #dc2626;" onmouseover="this.style.backgroundColor='#b91c1c'" onmouseout="this.style.backgroundColor='#dc2626'">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                    </div>
                 </td>
             `;
             tabel.appendChild(row);
@@ -459,7 +471,7 @@
             document.getElementById('inputDeskripsi').value = '';
             document.getElementById('inputUserName').value = '';
             document.getElementById('inputGambar').value = '';
-            document.getElementById('namaFile').textContent = 'Pilih gambar';
+            document.getElementById('labelPilihGambar').classList.remove('hidden');
             document.getElementById('previewContainer').classList.add('hidden');
             currentImage = null;
             jurnalCounter++;
@@ -508,8 +520,8 @@
                 const imgBtn = row.cells[4].querySelector('button');
                 imgBtn.onclick = () => lihatGambar(editImage);
                 
-                // Update edit button
-                const editBtn = row.cells[5].querySelector('button');
+                // Update edit button (dalam kolom Aksi)
+                const editBtn = row.cells[5].querySelector('button:first-child');
                 editBtn.onclick = () => editJurnal(currentEditId, judul, deskripsi, userName, editImage);
             }
 
