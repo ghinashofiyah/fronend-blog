@@ -1,0 +1,105 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.dashboard-container {
+  @apply p-6 space-y-8;
+}
+
+.dashboard-title {
+  @apply text-2xl font-bold text-gray-800;
+}
+
+/* Stats */
+.stats-grid {
+  @apply grid grid-cols-1 md:grid-cols-3 gap-6;
+}
+
+.stat-card {
+  @apply bg-white rounded-xl p-6 shadow text-center;
+}
+
+.stat-label {
+  @apply text-gray-500 text-sm;
+}
+
+.stat-value {
+  @apply text-3xl font-bold text-indigo-600 mt-2;
+}
+
+/* Card */
+.card-box {
+  @apply bg-white rounded-xl shadow p-6 relative;
+}
+
+.card-accent {
+  @apply absolute top-0 left-0 w-full h-1 bg-indigo-500 rounded-t-xl;
+}
+
+.section-title {
+  @apply text-lg font-semibold mb-4 flex items-center gap-2;
+}
+
+.chart-canvas {
+  @apply max-h-[350px];
+}
+
+/* Grid */
+.content-grid {
+  @apply grid grid-cols-1 lg:grid-cols-2 gap-8;
+}
+
+/* Table */
+.custom-table {
+  @apply w-full text-sm text-left;
+}
+
+.custom-table th {
+  @apply bg-gray-100 p-3 font-semibold text-center;
+}
+
+.custom-table td {
+  @apply p-3 border-b text-center;
+}
+
+.table-img {
+  @apply w-20 rounded-lg;
+}
+
+.admin-avatar {
+  @apply w-8 h-8 rounded-full mx-auto;
+}
+
+.empty-row {
+  @apply text-center py-6 text-gray-500;
+}
+
+/* Badge */
+.badge {
+  @apply px-3 py-1 rounded-full text-xs font-semibold;
+}
+
+.badge-published {
+  @apply bg-green-500 text-white;
+}
+
+.badge-draft {
+  @apply bg-yellow-500 text-white;
+}
+
+/* Popular */
+.popular-item {
+  @apply bg-indigo-600 p-4 rounded-lg;
+}
+
+.pop-title {
+  @apply text-white font-semibold;
+}
+
+.pop-meta {
+  @apply flex justify-between text-xs text-white mt-2;
+}
+
+.pop-tag {
+  @apply bg-white text-indigo-600 px-2 py-1 rounded;
+}

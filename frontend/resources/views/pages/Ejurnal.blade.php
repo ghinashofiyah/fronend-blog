@@ -4,7 +4,7 @@
 
 @section('content')
 
-    <style>
+    <!--<style>
         body {
             background: #ffffff;
             min-height: 100vh;
@@ -42,7 +42,8 @@
             transform: translateY(-5px);
             box-shadow: 0 20px 40px rgba(73, 136, 196, 0.3);
         }
-    </style>
+    </style>-->
+<link rel="stylesheet" href="css/ejurnal.blade.css">
 </head>
 <body class="p-6">
     <div class="max-w-7xl mx-auto">
@@ -384,7 +385,7 @@
         </div>
     </div>
 
-    <script>
+    <!--<script>
         let jurnalCounter = 4;
         let currentEditId = null;
         let currentImage = null;
@@ -566,6 +567,6 @@
                 tutupModalEditJurnal();
             }
         });
-    </script>
+    </script>-->
 
 @endsection

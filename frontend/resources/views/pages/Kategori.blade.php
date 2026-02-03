@@ -4,7 +4,7 @@
 
 @section('content')
 
-    <style>
+    <!--<style>
         body {
             background: ( #fbfbfc  100%);
             min-height: 100vh;
@@ -31,7 +31,8 @@
             to { opacity: 1; transform: translateY(0); }
         }
         .animate-slide { animation: slideIn 0.5s ease-out; }
-    </style>
+    </style>-->
+<link rel="stylesheet" href="css/kategori.blade.css">
 </head>
 <body class="p-6">
     <div class="max-w-7xl mx-auto">

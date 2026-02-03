@@ -125,7 +125,7 @@
     };
 </script>
 
-<style>
+<!--<style>
     .ql-toolbar.ql-snow {
         border: none !important;
         background: #f8f9fa;
@@ -136,5 +136,6 @@
         border: none !important;
         border-radius: 0 0 12px 12px;
     }
-</style>
+</style>-->
+<link rel="stylesheet" href="css/tambah.blade.css">
 @endsection
