@@ -4,65 +4,63 @@
 
 @section('content')
 <link href="https://cdn.jsdelivr.net/npm/quill@2.0.3/dist/quill.snow.css" rel="stylesheet">
+<link href="{{ asset('css/tambahblog.css') }}" rel="stylesheet">
 
-<div class="tambah-blog-container" style="padding: 30px; font-family: 'Segoe UI', sans-serif; max-width: 1200px; margin: 0 auto; background: #f5f7fa; min-height: 100vh;">   
-    <h1 style="font-size: 32px; margin-bottom: 30px; font-weight: 700; color: #2d3748;">Tambah Blog</h1>
+<div class="tambah-blog-container">   
+    <h1>Tambah Blog</h1>
     
     <form id="blogForm" action="{{ route('blog.store') }}" method="POST" enctype="multipart/form-data">
         @csrf
         
-        <div style="display: grid; grid-template-columns: 1fr; gap: 25px;">
-            <input type="text" id="judul" name="judul" placeholder="Judul Blog" required 
-                   style="width: 100%; padding: 18px; border-radius: 12px; border: 2px solid #e0e0e0; font-size: 18px;">
+        <div class="form-grid">
+            <input type="text" id="judul" name="judul" placeholder="Judul Blog" required class="input-judul">
 
-            <div style="display: grid; grid-template-columns: 2fr 1fr; gap: 25px;">
+            <div class="content-grid">
                 
-                <div style="background: white; border-radius: 12px; border: 2px solid #e0e0e0; display: flex; flex-direction: column;">
-                    <div id="editor" style="height: 450px; font-size: 16px;"></div>
-                    
+                <div class="editor-container">
+                    <div id="editor"></div>
                     <input type="hidden" name="deskripsi" id="deskripsi-hidden">
                 </div>
                 
-                <div style="display: flex; flex-direction: column; gap: 15px;">
-                    <input type="text" name="penulis" placeholder="Penulis" required style="padding: 15px; border-radius: 10px; border: 1px solid #ccc;">
+                <div class="sidebar-form">
+                    <input type="text" name="penulis" placeholder="Penulis" required class="form-input">
                     
-                    <select name="kategori" required style="padding: 15px; border-radius: 10px; border: 1px solid #ccc;">
-                        <option value="" disabled selected>Pilih Kategori1</option>
+                    <select name="kategori" required class="form-input">
+                        <option value="" disabled selected>Pilih Kategori</option>
                         <option value="Tutorial">Tutorial</option>
                         <option value="Web Dev">Web Dev</option>
                     </select>
 
-                    <select name="status" required style="padding: 15px; border-radius: 10px; border: 1px solid #ccc;">
+                    <select name="status" required class="form-input">
                         <option value="draft">Draft</option>
                         <option value="published">Published</option>
                     </select>
 
                     <div>
-                      <label class="block text-sm font-bold mb-3 flex items-center gap-2" style="color: #4988C4;">
-                        <i class="fas fa-image"></i>
-                        Gambar Blog
-                      </label>
-                      <div class="flex items-center gap-3">
-                        <input 
-                          type="file" 
-                          id="inputGambar"
-                          name="gambar"
-                          accept="image/*"
-                          class="hidden"
-                          onchange="previewGambar(event)"
-                        >
-                        <label for="inputGambar" class="flex-1 px-4 py-3 rounded-xl text-base cursor-pointer transition-all flex items-center justify-center gap-2 font-medium" style="border: 2px solid #4988C4; color: #4988C4; background-color: #ffffff;" onmouseover="this.style.backgroundColor='rgba(73, 136, 196, 0.1)'" onmouseout="this.style.backgroundColor='#ffffff'">
-                          <i class="fas fa-cloud-upload-alt text-xl"></i>
-                          <span id="namaFile">Pilih gambar</span>
+                        <label class="block text-sm font-bold mb-3 flex items-center gap-2 label-gambar">
+                            <i class="fas fa-image"></i>
+                            Gambar Blog
                         </label>
-                      </div>
-                      <div id="previewContainer" class="hidden mt-4">
-                        <img id="previewImage" class="w-full h-48 object-cover rounded-xl shadow-lg" style="border: 2px solid #4988C4;">
-                      </div>
+                        <div class="file-input-wrapper">
+                            <input 
+                                type="file" 
+                                id="inputGambar"
+                                name="gambar"
+                                accept="image/*"
+                                class="file-input-hidden"
+                                onchange="previewGambar(event)"
+                            >
+                            <label for="inputGambar" class="file-label">
+                                <i class="fas fa-cloud-upload-alt"></i>
+                                <span id="namaFile">Pilih gambar</span>
+                            </label>
+                        </div>
+                        <div id="previewContainer" class="preview-container hidden">
+                            <img id="previewImage" class="preview-image" alt="Preview">
+                        </div>
                     </div>
                     
-                    <button type="submit" id="submit-btn" 
-                            style="padding: 20px; border-radius: 12px; border: none; background: #4988C4; color: white; font-weight: bold; cursor: pointer;">
+                    <button type="submit" id="submit-btn" class="submit-btn">
                         Upload Blog
                     </button>
                 </div>
@@ -125,17 +123,4 @@
     };
 </script>
 
-<!--<style>
-    .ql-toolbar.ql-snow {
-        border: none !important;
-        background: #f8f9fa;
-        border-bottom: 1px solid #e0e0e0 !important;
-        border-radius: 12px 12px 0 0;
-    }
-    .ql-container.ql-snow {
-        border: none !important;
-        border-radius: 0 0 12px 12px;
-    }
-</style>-->
-<link rel="stylesheet" href="css/tambah.blade.css">
 @endsection

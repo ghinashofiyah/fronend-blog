@@ -20,11 +20,6 @@
         </span>
 
         <div class="dropdown-menu" id="dropdownMenu">
-            
-            <a href="" class="dropdown-item">
-                <i class="fas fa-user-gear"></i>
-                <span>Admin</span>
-            </a>
 
             <a href="" class="dropdown-item">
                 <i class="fas fa-user"></i>
