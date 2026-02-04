@@ -1,253 +1,173 @@
-<!-- resources/views/dashboard.blade.php -->
 @extends('layout.App')
 
 @section('title', 'Dashboard - Portal Blog')
 
-@push('styles')
-    <link rel="stylesheet" href="{{ asset('css/dashboard.css') }}">
-@endpush
-
 @section('content')
-<div class="dashboard-container">
-    
-    <!-- Title -->
-    <h1 class="page-title">Dashboard Portal Blog</h1>
-    
+<div class="min-h-screen bg-[#fbfbfc] p-5 font-sans max-w-7xl mx-auto">
+
+    <!-- Page Title -->
+    <h1 class="text-[28px] font-bold mb-6
+               bg-gradient-to-r from-gray-800 to-[#4988C4]
+               bg-clip-text text-transparent">
+        Dashboard Portal Blog
+    </h1>
+
     <!-- Stats Cards -->
-    <div class="stats-cards">
-        <div class="stat-card">
-            <div class="stat-label">📰 Jumlah Berita</div>
-            <div class="stat-value">{{ $jumlahBerita ?? 131 }}</div>
-        </div>
-        
-        <div class="stat-card">
-            <div class="stat-label">✅ Berita Published</div>
-            <div class="stat-value">{{ $beritaPublished ?? 98 }}</div>
+    <div class="flex flex-wrap gap-5 mb-9">
+        <!-- Card -->
+        <div class="flex-1 min-w-[200px] text-center px-9 py-6 rounded-xl
+                    bg-gradient-to-r from-[#4988C4] to-[#4988C4]
+                    transition-all duration-300
+                    hover:-translate-y-1 hover:shadow-lg">
+            <div class="text-sm text-white/95 mb-2 font-medium tracking-wide">
+                📰 Jumlah Berita
+            </div>
+            <div class="text-4xl font-bold text-white">
+                {{ $jumlahBerita ?? 131 }}
+            </div>
         </div>
 
-        <div class="stat-card">
-            <div class="stat-label">📝 Berita Draft</div>
-            <div class="stat-value">{{ $beritaDraft ?? 33 }}</div>
+        <div class="flex-1 min-w-[200px] text-center px-9 py-6 rounded-xl
+                    bg-gradient-to-r from-[#4988C4] to-[#4988C4]
+                    transition-all duration-300
+                    hover:-translate-y-1 hover:shadow-lg">
+            <div class="text-sm text-white/95 mb-2 font-medium tracking-wide">
+                ✅ Berita Published
+            </div>
+            <div class="text-4xl font-bold text-white">
+                {{ $beritaPublished ?? 98 }}
+            </div>
+        </div>
+
+        <div class="flex-1 min-w-[200px] text-center px-9 py-6 rounded-xl
+                    bg-gradient-to-r from-[#4988C4] to-[#4988C4]
+                    transition-all duration-300
+                    hover:-translate-y-1 hover:shadow-lg">
+            <div class="text-sm text-white/95 mb-2 font-medium tracking-wide">
+                📝 Berita Draft
+            </div>
+            <div class="text-4xl font-bold text-white">
+                {{ $beritaDraft ?? 33 }}
+            </div>
         </div>
     </div>
-    
-    <!-- Diagram Viewers -->
-    <div class="diagram-container">
-        <h2 class="section-title">
-            <span class="section-icon">📊</span>
-            Diagram Data Viewers 
+
+    <!-- Diagram -->
+    <div class="relative bg-white rounded-2xl p-8 mb-9
+                shadow-[0_4px_20px_rgba(0,0,0,0.08)]
+                border-t-4 border-[#4988C4]">
+        <h2 class="text-xl font-semibold text-gray-800 mb-6 flex items-center gap-2">
+            <span class="text-2xl">📊</span> Diagram Data Viewers
         </h2>
-        <canvas id="myChart" class="chart-canvas"></canvas>
+        <canvas id="myChart" class="max-h-[350px] w-full"></canvas>
     </div>
-    
+
     <!-- Berita Section -->
-    <div class="berita-section">
-        
-        <!-- Berita Terbaru (73%) -->
+    <div class="grid grid-cols-1 lg:grid-cols-[73%_25%] gap-6">
+
+        <!-- Berita Terbaru -->
         <div>
-            <h2 class="section-title">
-                <span class="section-icon">🔥</span>
-                Berita Terbaru
+            <h2 class="text-xl font-semibold text-gray-800 mb-6 flex items-center gap-2">
+                <span class="text-2xl">🔥</span> Berita Terbaru
             </h2>
-            <div class="berita-box">
-                <table class="berita-table">
-                    <thead>
-                        <tr>
-                            <th class="col-no">No</th>
-                            <th class="col-image text-left">Gambar</th>
-                            <th class="col-title text-left">Judul</th>
-                            <th class="col-admin text-center">Admin</th>
-                            <th class="col-name text-left">Nama</th>
-                            <th class="col-status text-center">Status</th>
-                            <th class="col-time text-center">Waktu</th>
+
+            <div class="relative bg-white rounded-2xl overflow-hidden
+                        shadow-[0_4px_20px_rgba(0,0,0,0.08)]
+                        border-t-4 border-[#4988C4]">
+                <table class="w-full border-collapse text-sm">
+                    <thead class="bg-gradient-to-r from-gray-100 to-gray-200 border-b-2">
+                        <tr class="text-gray-800 font-semibold">
+                            <th class="p-4 text-center w-[5%]">No</th>
+                            <th class="p-4 text-left w-[12%]">Gambar</th>
+                            <th class="p-4 text-left w-[30%]">Judul</th>
+                            <th class="p-4 text-center w-[8%]">Admin</th>
+                            <th class="p-4 text-left w-[15%]">Nama</th>
+                            <th class="p-4 text-center w-[15%]">Status</th>
+                            <th class="p-4 text-center w-[15%]">Waktu</th>
                         </tr>
                     </thead>
-                    <tbody id="beritaTerbaruList">
-                        <tr>
-                            <td class="text-center cell-number">1</td>
-                            <td class="cell-image">
-                                <img src="https://via.placeholder.com/80x60" alt="Berita 1">
+                    <tbody>
+                        <tr class="border-b transition hover:bg-gradient-to-r hover:from-gray-100 hover:to-gray-200">
+                            <td class="p-4 text-center font-semibold text-gray-600">1</td>
+                            <td class="p-4">
+                                <img src="https://via.placeholder.com/80x60"
+                                     class="w-[80px] h-[60px] rounded-lg object-cover shadow">
                             </td>
-                            <td class="cell-title">Efek Krisis RAM, Toko di Jepang Sampai "Ngebet" Beli PC Lama Pelanggan</td>
-                            <td class="text-center cell-admin-avatar">
-                                <img src="https://via.placeholder.com/40" alt="Admin">
+                            <td class="p-4 font-medium text-gray-800 leading-relaxed">
+                                Efek Krisis RAM, Toko di Jepang Sampai "Ngebet" Beli PC Lama
                             </td>
-                            <td class="cell-name">Admin Satu</td>
-                            <td class="text-center">
-                                <span class="status-badge published">Published</span>
+                            <td class="p-4 text-center">
+                                <img src="https://via.placeholder.com/40"
+                                     class="w-10 h-10 rounded-full object-cover border-2 border-[#4988C4] mx-auto">
                             </td>
-                            <td class="text-center cell-time">2 jam lalu</td>
-                        </tr>
-                        <tr>
-                            <td class="text-center cell-number">2</td>
-                            <td class="cell-image">
-                                <img src="https://via.placeholder.com/80x60" alt="Berita 2">
+                            <td class="p-4 font-medium text-gray-600">Admin Satu</td>
+                            <td class="p-4 text-center">
+                                <span class="px-4 py-1 rounded-full text-xs font-semibold text-white
+                                             bg-gradient-to-r from-[#4988C4] to-[#4988C4]">
+                                    Published
+                                </span>
                             </td>
-                            <td class="cell-title">Ribuan Warga Mojokerto Ikuti "Mlaku Bareng Gus Bupati" di Stadion Gajah Mada</td>
-                            <td class="text-center cell-admin-avatar">
-                                <img src="https://via.placeholder.com/40" alt="Admin">
+                            <td class="p-4 text-center text-gray-500 text-xs font-medium">
+                                2 jam lalu
                             </td>
-                            <td class="cell-name">Admin Dua</td>
-                            <td class="text-center">
-                                <span class="status-badge draft">Draft</span>
-                            </td>
-                            <td class="text-center cell-time">5 jam lalu</td>
-                        </tr>
-                        <tr>
-                            <td class="text-center cell-number">3</td>
-                            <td class="cell-image">
-                                <img src="https://via.placeholder.com/80x60" alt="Berita 3">
-                            </td>
-                            <td class="cell-title">Pihak Tergugat 1 (Bapenda Kab Sukabumi), Tidak Bisa Hadirkan Saksi Fakta Dan Alat Bukti Dalam Lanjutan Sidang Gugatan Bayar Pajak Waris Tanah Natadipura</td>
-                            <td class="text-center cell-admin-avatar">
-                                <img src="https://via.placeholder.com/40" alt="Admin">
-                            </td>
-                            <td class="cell-name">Admin Tiga</td>
-                            <td class="text-center">
-                                <span class="status-badge published">Published</span>
-                            </td>
-                            <td class="text-center cell-time">1 hari lalu</td>
                         </tr>
                     </tbody>
                 </table>
             </div>
         </div>
-        
-        <!-- Berita Terpopuler (25%) -->
+
+        <!-- Berita Terpopuler -->
         <div>
-            <h2 class="section-title">
-                <span class="section-icon">⭐</span>
-                Berita Terpopuler
+            <h2 class="text-xl font-semibold text-gray-800 mb-6 flex items-center gap-2">
+                <span class="text-2xl">⭐</span> Berita Terpopuler
             </h2>
-            <div class="berita-box terpopuler">
-                <div id="beritaTerpopulerList">
-                    <!-- Item 1 -->
-                    <div class="popular-item">
-                        <div class="popular-item-title">Bahlil Siap Perangi Mafia Migas, Minta Dukungan Ulama</div>
-                        <div class="popular-item-meta">
-                            <span class="popular-category">POLITIK</span>
-                            <span class="popular-views">👁 15.3k</span>
-                            <span class="popular-time">3 hari lalu</span>
-                        </div>
+
+            <div class="bg-white rounded-2xl p-5
+                        shadow-[0_4px_20px_rgba(0,0,0,0.08)]">
+                <div class="mb-4 p-4 rounded-xl
+                            bg-gradient-to-r from-[#4988C4] to-[#4988C4]
+                            border-l-4 border-[#4988C4]
+                            transition-all hover:translate-x-1 hover:shadow-lg">
+                    <div class="text-white font-semibold text-sm mb-2 leading-relaxed">
+                        Bahlil Siap Perangi Mafia Migas
                     </div>
-                    
-                    <!-- Item 2 -->
-                    <div class="popular-item">
-                        <div class="popular-item-title">Indonesia Percepat Pembangunan Infrastruktur Digital Nasional Internet</div>
-                        <div class="popular-item-meta">
-                            <span class="popular-category">TEKNOLOGI</span>
-                            <span class="popular-views">👁 12.8k</span>
-                            <span class="popular-time">1 minggu lalu</span>
-                        </div>
-                    </div>
-                    
-                    <!-- Item 3 -->
-                    <div class="popular-item">
-                        <div class="popular-item-title">Erick Thohir Tancap Gas, Industri Olahraga Ditarget Jadi Mesin Ekonomi Baru Nasional</div>
-                        <div class="popular-item-meta">
-                            <span class="popular-category">OLAHRAGA</span>
-                            <span class="popular-views">👁 10.5k</span>
-                            <span class="popular-time">2 hari lalu</span>
-                        </div>
+                    <div class="flex justify-between items-center gap-2 text-white text-xs flex-wrap">
+                        <span class="px-3 py-1 rounded-full bg-[#4988C4] font-semibold">POLITIK</span>
+                        <span>👁 15.3k</span>
+                        <span>3 hari lalu</span>
                     </div>
                 </div>
             </div>
         </div>
-        
-    </div>
 
+    </div>
 </div>
 
 @push('scripts')
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
 <script>
-    const ctx = document.getElementById('myChart').getContext('2d');
-    
-    const data = {
-        labels: ['Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu', 'Minggu'],
+const ctx = document.getElementById('myChart');
+new Chart(ctx, {
+    type: 'line',
+    data: {
+        labels: ['Senin','Selasa','Rabu','Kamis','Jumat','Sabtu','Minggu'],
         datasets: [{
             label: 'Viewers',
-            data: [879, 3595, 2569, 1995, 3678, 500, 4278],
-            borderColor: '#667eea',
-            backgroundColor: 'rgba(102, 126, 234, 0.1)',
+            data: [879,3595,2569,1995,3678,500,4278],
+            borderColor: '#4988C4',
+            backgroundColor: 'rgba(73,136,196,0.15)',
             borderWidth: 3,
-            pointRadius: 6,
-            pointBackgroundColor: '#667eea',
-            pointBorderColor: '#fff',
-            pointBorderWidth: 2,
-            pointHoverRadius: 8,
             tension: 0.4,
             fill: true
         }]
-    };
-
-    const config = {
-        type: 'line',
-        data: data,
-        options: {
-            responsive: true,
-            maintainAspectRatio: true,
-            plugins: {
-                legend: {
-                    display: true,
-                    labels: {
-                        color: '#2d3748',
-                        font: {
-                            size: 13,
-                            weight: '600'
-                        }
-                    }
-                },
-                tooltip: {
-                    backgroundColor: 'rgba(45, 55, 72, 0.95)',
-                    titleColor: '#fff',
-                    bodyColor: '#fff',
-                    padding: 12,
-                    borderColor: '#4988C4',
-                    borderWidth: 1,
-                    callbacks: {
-                        label: function(context) {
-                            return 'Viewers: ' + context.parsed.y.toLocaleString('id-ID');
-                        }
-                    }
-                }
-            },
-            scales: {
-                y: {
-                    beginAtZero: true,
-                    max: 4500,
-                    ticks: {
-                        callback: function(value) {
-                            return value.toLocaleString('id-ID');
-                        },
-                        font: {
-                            size: 12
-                        },
-                        color: '#4a5568'
-                    },
-                    grid: {
-                        color: 'rgba(102, 126, 234, 0.1)',
-                        drawBorder: false
-                    }
-                },
-                x: {
-                    ticks: {
-                        font: {
-                            size: 12,
-                            weight: '500'
-                        },
-                        color: '#4a5568'
-                    },
-                    grid: {
-                        display: false
-                    }
-                }
-            }
+    },
+    options: {
+        responsive: true,
+        plugins: {
+            legend: { labels: { color: '#2d3748' } }
         }
-    };
-
-    const myChart = new Chart(ctx, config);
+    }
+});
 </script>
 @endpush
-
 @endsection
