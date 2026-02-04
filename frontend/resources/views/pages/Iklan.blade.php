@@ -32,7 +32,7 @@
     }
     .animate-slide { animation: slideIn 0.5s ease-out; }
   </style>-->
-<link rel="stylesheet" href="css/iklan.blade.css">
+<link rel="stylesheet" href="{{ asset('css/iklan.css')}}">
 </head>
 <body class="font-sans">
 

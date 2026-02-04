@@ -43,8 +43,7 @@
             box-shadow: 0 20px 40px rgba(73, 136, 196, 0.3);
         }
     </style>-->
-<link rel="stylesheet" href="css/ejurnal.blade.css">
-</head>
+    <link rel="stylesheet" href="{{ asset('css/ejurnal.css')}}"></head>
 <body class="p-6">
     <div class="max-w-7xl mx-auto">
         <!-- Header -->

@@ -66,7 +66,7 @@
     </div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
-    <script>
+    <!--script>
         const ctx = document.getElementById('myChart').getContext('2d');
         
         const data = {
@@ -153,7 +153,8 @@
         };
 
         const myChart = new Chart(ctx, config);
-    </script>
+    </script-->
+    <link rel="stylesheet" href="{{ asset('css/dashboard.css')}}">
     
 <!-- Berita Section -->
 <div class="berita-section" style="display: grid; grid-template-columns: 73% 25%; gap: 2%; margin-bottom: 20px;">

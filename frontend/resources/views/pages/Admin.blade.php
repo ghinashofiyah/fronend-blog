@@ -19,7 +19,7 @@
             box-shadow: 0 10px 30px rgba(0,0,0,0.15);
         }
     </style> -->
-<link rel="stylesheet" href="{{ asset('css/admin.blade.css')}}">
+<link rel="stylesheet" href="{{ asset('css/admin.css')}}">
 </head>
 <body class="p-6">
     <div class="max-w-7xl mx-auto">

@@ -32,7 +32,7 @@
         }
         .animate-slide { animation: slideIn 0.5s ease-out; }
     </style>-->
-<link rel="stylesheet" href="css/kategori.blade.css">
+<link rel="stylesheet" href="{{ asset('css/kategori.css')}}">
 </head>
 <body class="p-6">
     <div class="max-w-7xl mx-auto">
