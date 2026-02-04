@@ -2,488 +2,311 @@
 
 @section('title', 'E-Jurnal - Portal Blog')
 
-@push('styles')
-<link rel="stylesheet" href="{{ asset('css/ejurnal.css') }}">
-@endpush
-
 @section('content')
 
-<div class="page-container">
-    <!-- Header -->
-    <div class="page-header">
-        <h1 class="page-title">
-            <div class="title-icon-wrapper">
-                <i class="fas fa-book title-icon"></i>
+<body class="bg-white min-h-screen p-6">
+
+<div class="max-w-7xl mx-auto">
+
+    <!-- HEADER -->
+    <div class="mb-8">
+        <h1 class="flex items-center gap-4 text-5xl font-bold drop-shadow-lg">
+            <div class="p-4 rounded-xl border-2 border-[#4988C4] shadow-2xl bg-white">
+                <i class="fas fa-book text-4xl text-[#4988C4]"></i>
             </div>
             Kelola E-Jurnal
         </h1>
     </div>
 
-    <!-- Grid Layout -->
-    <div class="content-grid">
-        <!-- Tambah Jurnal -->
-        <div class="form-card card-hover">
-            <div class="form-header">
-                <h2 class="form-title">
-                    <i class="fas fa-plus-circle"></i>
-                    Tambah Jurnal
+    <!-- GRID -->
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+
+        <!-- FORM -->
+        <div class="lg:col-span-4 h-[650px] bg-white border-2 border-[#4988C4] rounded-xl shadow-xl flex flex-col transition-all hover:-translate-y-1 hover:shadow-2xl">
+
+            <div class="p-8 pb-4">
+                <h2 class="text-3xl font-bold text-[#4988C4] border-b-4 border-[#4988C4] pb-4">
+                    <i class="fas fa-plus-circle mr-2"></i>Tambah Jurnal
                 </h2>
             </div>
-            
-            <!-- Scrollable Form Area -->
-            <div class="form-scrollable scrollbar-thin">
-                <div class="form-fields">
-                    <div class="form-group">
-                        <label class="form-label label-with-icon">
-                            <i class="fas fa-heading"></i>
-                            Judul
-                        </label>
-                        <input 
-                            type="text" 
-                            id="inputJudul" 
-                            placeholder="Masukkan judul jurnal" 
-                            class="form-input"
-                        >
-                    </div>
-                    
-                    <div class="form-group">
-                        <label class="form-label label-with-icon">
-                            <i class="fas fa-align-left"></i>
-                            Deskripsi
-                        </label>
-                        <textarea 
-                            id="inputDeskripsi" 
-                            rows="3"
-                            placeholder="Masukkan deskripsi jurnal" 
-                            class="form-textarea"
-                        ></textarea>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label class="form-label label-with-icon">
-                            <i class="fas fa-user"></i>
-                            Nama Pengguna
-                        </label>
-                        <input 
-                            type="text" 
-                            id="inputUserName" 
-                            placeholder="Masukkan nama user" 
-                            class="form-input"
-                        >
-                    </div>
-                    
-                    <div class="form-group">
-                        <label class="form-label label-with-icon">
-                            <i class="fas fa-image"></i>
-                            Gambar
-                        </label>
-                        <div class="relative">
-                            <input 
-                                type="file" 
-                                id="inputGambar" 
-                                accept="image/*"
-                                class="file-input-hidden"
-                                onchange="previewGambar(event)"
-                            >
-                            <label id="labelPilihGambar" for="inputGambar" class="file-upload-label">
-                                <i class="fas fa-cloud-upload-alt file-upload-icon"></i>
-                                <span>Pilih gambar</span>
-                            </label>
-                            <div id="previewContainer" class="preview-container hidden">
-                                <div class="relative">
-                                    <img id="previewImage" class="preview-image" alt="Preview">
-                                    <button type="button" onclick="hapusGambar()" class="delete-preview-btn">
-                                        <i class="fas fa-times"></i>
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
+
+            <div class="flex-1 overflow-y-auto px-8 space-y-5">
+
+                <!-- Judul -->
+                <div>
+                    <label class="flex items-center gap-2 font-bold text-sm text-[#4988C4] mb-2">
+                        <i class="fas fa-heading"></i> Judul
+                    </label>
+                    <input id="inputJudul" type="text"
+                        class="w-full px-4 py-3 rounded-xl border-2 border-[#4988C4]
+                               focus:outline-none focus:ring-4 focus:ring-[#4988C4]/20">
+                </div>
+
+                <!-- Deskripsi -->
+                <div>
+                    <label class="flex items-center gap-2 font-bold text-sm text-[#4988C4] mb-2">
+                        <i class="fas fa-align-left"></i> Deskripsi
+                    </label>
+                    <textarea id="inputDeskripsi" rows="3"
+                        class="w-full px-4 py-3 rounded-xl border-2 border-[#4988C4]
+                               resize-none focus:outline-none focus:ring-4 focus:ring-[#4988C4]/20"></textarea>
+                </div>
+
+                <!-- User -->
+                <div>
+                    <label class="flex items-center gap-2 font-bold text-sm text-[#4988C4] mb-2">
+                        <i class="fas fa-user"></i> Nama Pengguna
+                    </label>
+                    <input id="inputUserName" type="text"
+                        class="w-full px-4 py-3 rounded-xl border-2 border-[#4988C4]
+                               focus:outline-none focus:ring-4 focus:ring-[#4988C4]/20">
+                </div>
+
+                <!-- Upload -->
+                <div>
+                    <label class="flex items-center gap-2 font-bold text-sm text-[#4988C4] mb-2">
+                        <i class="fas fa-image"></i> Gambar
+                    </label>
+
+                    <input type="file" id="inputGambar" accept="image/*"
+                        class="hidden" onchange="previewGambar(event)">
+
+                    <label for="inputGambar"
+                        id="labelPilihGambar"
+                        class="block cursor-pointer text-center px-4 py-3 rounded-xl border-2 border-[#4988C4]
+                               text-[#4988C4] font-semibold hover:bg-[#4988C4]/10 transition">
+                        <i class="fas fa-cloud-upload-alt mr-2"></i>Pilih Gambar
+                    </label>
+
+                    <div id="previewContainer" class="hidden mt-3 relative">
+                        <img id="previewImage"
+                             class="w-full h-48 object-contain rounded-xl border-2 border-[#4988C4] shadow-lg bg-gray-50">
+                        <button onclick="hapusGambar()"
+                            class="absolute top-2 right-2 bg-red-500 hover:bg-red-600
+                                   text-white rounded-full w-8 h-8 flex items-center justify-center shadow-lg">
+                            ✕
+                        </button>
                     </div>
                 </div>
             </div>
-            
-            <!-- Fixed Button Area -->
-            <div class="form-button-area">
-                <button onclick="tambahJurnal()" class="btn-upload">
+
+            <div class="p-8 pt-4">
+                <button onclick="tambahJurnal()"
+                    class="w-full bg-[#4988C4] text-white font-bold py-3 rounded-xl
+                           shadow-lg transition-all hover:bg-[#3a6ea0] hover:scale-105 hover:shadow-2xl">
                     <i class="fas fa-upload mr-2"></i>Upload
                 </button>
             </div>
         </div>
 
-        <!-- Tabel Jurnal -->
-        <div class="table-card card-hover">
-            <h2 class="table-title">
-                <i class="fas fa-table"></i>
-                Tabel Jurnal
+        <!-- TABLE -->
+        <div class="lg:col-span-8 h-[650px] bg-white border-2 border-[#4988C4] rounded-xl shadow-xl p-8 flex flex-col transition-all hover:-translate-y-1 hover:shadow-2xl">
+
+            <h2 class="text-3xl font-bold text-[#4988C4] border-b-4 border-[#4988C4] pb-4 mb-6">
+                <i class="fas fa-table mr-2"></i>Tabel Jurnal
             </h2>
-            <div class="table-wrapper scrollbar-thin">
-                <table class="data-table">
-                    <thead class="sticky-header">
+
+            <div class="flex-1 overflow-x-auto overflow-y-auto border-2 border-[#4988C4] rounded-xl">
+                <table class="min-w-full text-sm">
+                    <thead class="sticky top-0 bg-[#4988C4] text-white">
                         <tr>
-                            <th class="text-center">No</th>
-                            <th class="text-left min-w-140">Judul</th>
-                            <th class="text-left min-w-200">Deskripsi</th>
-                            <th class="text-left min-w-120">Nama Pengguna</th>
-                            <th class="text-center">Gambar</th>
-                            <th class="text-center">Aksi</th>
+                            <th class="p-4 text-center">No</th>
+                            <th class="p-4 text-left">Judul</th>
+                            <th class="p-4 text-left">Deskripsi</th>
+                            <th class="p-4 text-left">User</th>
+                            <th class="p-4 text-center">Gambar</th>
+                            <th class="p-4 text-center">Aksi</th>
                         </tr>
                     </thead>
                     <tbody id="tabelJurnal">
-                        <tr class="transition-colors" id="jurnal-1">
-                            <td class="text-center cell-number">1</td>
-                            <td class="cell-title">Penelitian AI</td>
-                            <td class="cell-description">
-                                <div class="description-item">• Studi implementasi AI dalam pendidikan modern</div>
-                                <div class="description-item">• Analisis penggunaan machine learning untuk personalisasi pembelajaran</div>
-                                <div class="description-item">• Evaluasi efektivitas chatbot AI sebagai asisten pengajaran</div>
-                            </td>
-                            <td>
-                                <span class="cell-username">John Doe</span>
-                            </td>
-                            <td class="text-center">
-                                <div class="btn-group">
-                                    <button onclick="lihatGambar('https://via.placeholder.com/400x300/4988C4/ffffff?text=AI+Education')" class="btn-view-image">
-                                        <i class="fas fa-image"></i>
-                                    </button>
-                                    <button onclick="lihatGambar('https://via.placeholder.com/400x300/4988C4/ffffff?text=AI+Learning')" class="btn-view-image">
-                                        <i class="fas fa-image"></i>
-                                    </button>
-                                    <button onclick="lihatGambar('https://via.placeholder.com/400x300/4988C4/ffffff?text=AI+Chatbot')" class="btn-view-image">
-                                        <i class="fas fa-image"></i>
-                                    </button>
-                                </div>
-                            </td>
-                            <td class="text-center">
-                                <div class="btn-group">
-                                    <button onclick="editJurnal(1, 'Penelitian AI', 'Studi implementasi AI dalam pendidikan modern. Analisis penggunaan machine learning untuk personalisasi pembelajaran. Evaluasi efektivitas chatbot AI sebagai asisten pengajaran.', 'John Doe', 'https://via.placeholder.com/400x300/4988C4/ffffff?text=AI+Education')" class="btn-edit">
-                                        <i class="fas fa-edit"></i>
-                                    </button>
-                                    <button onclick="hapusJurnal(1)" class="btn-delete">
-                                        <i class="fas fa-trash"></i>
-                                    </button>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr class="transition-colors" id="jurnal-2">
-                            <td class="text-center cell-number">2</td>
-                            <td class="cell-title">Machine Learning</td>
-                            <td class="cell-description">
-                                <div class="description-item">• Analisis prediktif menggunakan algoritma ML</div>
-                                <div class="description-item">• Penerapan neural network untuk pattern recognition</div>
-                                <div class="description-item">• Optimasi model dengan deep learning techniques</div>
-                            </td>
-                            <td>
-                               <span class="cell-username">Jane Smith</span>
-                            </td>
-                            <td class="text-center">
-                                <div class="btn-group">
-                                    <button onclick="lihatGambar('https://via.placeholder.com/400x300/4988C4/ffffff?text=ML+Prediction')" class="btn-view-image">
-                                        <i class="fas fa-image"></i>
-                                    </button>
-                                    <button onclick="lihatGambar('https://via.placeholder.com/400x300/4988C4/ffffff?text=Neural+Network')" class="btn-view-image">
-                                        <i class="fas fa-image"></i>
-                                    </button>
-                                </div>
-                            </td>
-                            <td class="text-center">
-                                <div class="btn-group">
-                                    <button onclick="editJurnal(2, 'Machine Learning', 'Analisis prediktif menggunakan algoritma ML. Penerapan neural network untuk pattern recognition. Optimasi model dengan deep learning techniques.', 'Jane Smith', 'https://via.placeholder.com/400x300/4988C4/ffffff?text=ML+Prediction')" class="btn-edit">
-                                        <i class="fas fa-edit"></i>
-                                    </button>
-                                    <button onclick="hapusJurnal(2)" class="btn-delete">
-                                        <i class="fas fa-trash"></i>
-                                    </button>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr class="transition-colors" id="jurnal-3">
-                            <td class="text-center cell-number">3</td>
-                            <td class="cell-title">Data Science</td>
-                            <td class="cell-description">
-                                <div class="description-item">• Pengolahan big data untuk analisis bisnis</div>
-                                <div class="description-item">• Visualisasi data dengan tools modern seperti Tableau</div>
-                                <div class="description-item">• Implementasi data mining untuk customer insights</div>
-                            </td>
-                            <td>
-                               <span class="cell-username">Bob Johnson</span>
-                            </td>
-                            <td class="text-center">
-                                <div class="btn-group">
-                                    <button onclick="lihatGambar('https://via.placeholder.com/400x300/4988C4/ffffff?text=Big+Data')" class="btn-view-image">
-                                        <i class="fas fa-image"></i>
-                                    </button>
-                                    <button onclick="lihatGambar('https://via.placeholder.com/400x300/4988C4/ffffff?text=Data+Visualization')" class="btn-view-image">
-                                        <i class="fas fa-image"></i>
-                                    </button>
-                                    <button onclick="lihatGambar('https://via.placeholder.com/400x300/4988C4/ffffff?text=Data+Mining')" class="btn-view-image">
-                                        <i class="fas fa-image"></i>
-                                    </button>
-                                </div>
-                            </td>
-                            <td class="text-center">
-                                <div class="btn-group">
-                                    <button onclick="editJurnal(3, 'Data Science', 'Pengolahan big data untuk analisis bisnis. Visualisasi data dengan tools modern seperti Tableau. Implementasi data mining untuk customer insights.', 'Bob Johnson', 'https://via.placeholder.com/400x300/4988C4/ffffff?text=Big+Data')" class="btn-edit">
-                                        <i class="fas fa-edit"></i>
-                                    </button>
-                                    <button onclick="hapusJurnal(3)" class="btn-delete">
-                                        <i class="fas fa-trash"></i>
-                                    </button>
-                                </div>
-                            </td>
-                        </tr>
+                        <!-- ISI TETAP SAMA DENGAN PUNYA KAMU -->
                     </tbody>
                 </table>
             </div>
         </div>
     </div>
 </div>
+<!-- MODAL EDIT -->
+<div id="modalEdit" class="fixed inset-0 bg-black/50 hidden items-center justify-center z-50">
+    <div class="bg-white rounded-xl w-full max-w-lg p-6 shadow-2xl animate-fadeIn">
+        <h3 class="text-2xl font-bold text-[#4988C4] mb-4">
+            <i class="fas fa-edit mr-2"></i>Edit Jurnal
+        </h3>
 
-<!-- Modal Edit Jurnal -->
-<div id="modalEditJurnal" class="modal-edit hidden">
-    <div class="modal-content scrollbar-thin">
-        <div class="modal-header">
-            <h3 class="modal-title">
-                <i class="fas fa-edit"></i>
-                Edit Jurnal
-            </h3>
+        <input type="hidden" id="editIndex">
+
+        <div class="space-y-4">
+            <div>
+                <label class="text-sm font-semibold text-[#4988C4]">Judul</label>
+                <input id="editJudul" type="text"
+                    class="w-full mt-1 px-4 py-2 border-2 border-[#4988C4] rounded-lg focus:ring-4 focus:ring-[#4988C4]/20">
+            </div>
+
+            <div>
+                <label class="text-sm font-semibold text-[#4988C4]">Deskripsi</label>
+                <textarea id="editDeskripsi" rows="3"
+                    class="w-full mt-1 px-4 py-2 border-2 border-[#4988C4] rounded-lg focus:ring-4 focus:ring-[#4988C4]/20"></textarea>
+            </div>
+
+            <div>
+                <label class="text-sm font-semibold text-[#4988C4]">User</label>
+                <input id="editUser" type="text"
+                    class="w-full mt-1 px-4 py-2 border-2 border-[#4988C4] rounded-lg focus:ring-4 focus:ring-[#4988C4]/20">
+            </div>
+            <!-- Gambar -->
+<div>
+    <label class="text-sm font-semibold text-[#4988C4]">Gambar</label>
+
+    <input type="file" id="editGambar" accept="image/*"
+        class="hidden" onchange="previewEditGambar(event)">
+
+    <label for="editGambar"
+        class="block mt-1 cursor-pointer text-center px-4 py-2 rounded-lg border-2 border-[#4988C4]
+               text-[#4988C4] font-semibold hover:bg-[#4988C4]/10 transition">
+        <i class="fas fa-image mr-2"></i>Ganti Gambar
+    </label>
+
+    <div class="mt-3">
+        <img id="editPreviewImage"
+             class="w-full h-40 object-contain rounded-lg border-2 border-[#4988C4] bg-gray-50 shadow">
+    </div>
+</div>
+
         </div>
-        <div class="modal-body modal-fields">
-            <input type="hidden" id="editIdJurnal">
-            
-            <div class="form-group">
-                <label class="form-label">Judul</label>
-                <input type="text" id="editJudul" class="modal-input">
-            </div>
-            
-            <div class="form-group">
-                <label class="form-label">Deskripsi</label>
-                <textarea id="editDeskripsi" rows="4" class="modal-textarea"></textarea>
-            </div>
-            
-            <div class="form-group">
-                <label class="form-label">Nama Pengguna</label>
-                <input type="text" id="editUserName" class="modal-input">
-            </div>
-            
-            <div class="form-group">
-                <label class="form-label">Gambar</label>
-                <div class="modal-file-wrapper">
-                    <input 
-                        type="file" 
-                        id="editInputGambar" 
-                        accept="image/*"
-                        class="file-input-hidden"
-                        onchange="previewEditGambar(event)"
-                    >
-                    <label for="editInputGambar" class="modal-file-label">
-                        <i class="fas fa-image"></i>
-                        <span>Ganti gambar</span>
-                    </label>
-                </div>
-                <div id="editPreviewContainer" class="modal-preview-container">
-                    <img id="editPreviewImage" class="modal-preview-image" alt="Preview Edit">
-                </div>
-            </div>
-            
-            <div class="modal-actions">
-                <button onclick="simpanEditJurnal()" class="btn-save">
-                    <i class="fas fa-save mr-2"></i>Simpan
-                </button>
-                <button onclick="tutupModalEditJurnal()" class="btn-cancel">
-                    <i class="fas fa-times mr-2"></i>Batal
-                </button>
-            </div>
+
+        <div class="flex justify-end gap-3 mt-6">
+            <button onclick="tutupModal()"
+                class="px-4 py-2 rounded-lg border font-semibold hover:bg-gray-100">
+                Batal
+            </button>
+            <button onclick="simpanEdit()"
+                class="px-4 py-2 rounded-lg bg-[#4988C4] text-white font-semibold hover:bg-[#3a6ea0]">
+                Simpan
+            </button>
         </div>
     </div>
 </div>
 
-<!-- Modal Lihat Gambar -->
-<div id="modalLihatGambar" class="modal-image-view hidden" onclick="tutupModalLihatGambar()">
-    <div class="modal-image-container">
-        <div class="modal-image-wrapper">
-            <img id="gambarModal" class="modal-image" alt="Gambar Jurnal">
-        </div>
-    </div>
-</div>
-
-@push('scripts')
 <script>
-    let jurnalCounter = 4;
-    let currentEditId = null;
-    let currentImage = null;
-    let editImage = null;
-
-    function previewGambar(event) {
-        const file = event.target.files[0];
-        if (file) {
-            const reader = new FileReader();
-            reader.onload = function(e) {
-                currentImage = e.target.result;
-                document.getElementById('previewImage').src = e.target.result;
-                document.getElementById('labelPilihGambar').classList.add('hidden');
-                document.getElementById('previewContainer').classList.remove('hidden');
-            };
-            reader.readAsDataURL(file);
+    let dummyJurnal = [
+        {
+            judul: 'Pemanfaatan AI dalam Pendidikan',
+            deskripsi: 'Studi tentang penggunaan Artificial Intelligence untuk meningkatkan kualitas pembelajaran.',
+            user: 'Admin',
+            gambar: 'https://picsum.photos/200/120?random=1'
+        },
+        {
+            judul: 'Sistem Informasi Akademik',
+            deskripsi: 'Perancangan sistem informasi akademik berbasis web.',
+            user: 'Ghina',
+            gambar: 'https://picsum.photos/200/120?random=2'
+        },
+        {
+            judul: 'Keamanan Data Digital',
+            deskripsi: 'Analisis metode enkripsi untuk melindungi data digital.',
+            user: 'Operator',
+            gambar: 'https://picsum.photos/200/120?random=3'
+        },
+        {
+            judul: 'UI/UX Modern dengan Tailwind',
+            deskripsi: 'Penerapan Tailwind CSS untuk desain antarmuka modern.',
+            user: 'Developer',
+            gambar: 'https://picsum.photos/200/120?random=4'
         }
-    }
+    ];
 
-    function hapusGambar() {
-        document.getElementById('inputGambar').value = '';
-        document.getElementById('previewImage').src = '';
-        document.getElementById('labelPilihGambar').classList.remove('hidden');
-        document.getElementById('previewContainer').classList.add('hidden');
-        currentImage = null;
-    }
+    function renderDummyData() {
+        const tabelJurnal = document.getElementById('tabelJurnal');
+        tabelJurnal.innerHTML = '';
 
-    function previewEditGambar(event) {
-        const file = event.target.files[0];
-        if (file) {
-            const reader = new FileReader();
-            reader.onload = function(e) {
-                editImage = e.target.result;
-                document.getElementById('editPreviewImage').src = e.target.result;
-            };
-            reader.readAsDataURL(file);
+        dummyJurnal.forEach((item, index) => {
+            tabelJurnal.innerHTML += `
+                <tr class="border-b hover:bg-gray-50 transition">
+                    <td class="p-4 text-center font-semibold">${index + 1}</td>
+                    <td class="p-4 font-medium">${item.judul}</td>
+                    <td class="p-4">${item.deskripsi}</td>
+                    <td class="p-4">${item.user}</td>
+                    <td class="p-4 text-center">
+                        <img src="${item.gambar}"
+                             class="w-20 h-12 object-cover rounded-lg mx-auto shadow">
+                    </td>
+                    <td class="p-4 text-center space-x-2">
+                        <button onclick="bukaEdit(${index})"
+                            class="bg-yellow-400 hover:bg-yellow-500 text-white px-3 py-1 rounded-lg text-xs shadow">
+                            Edit
+                        </button>
+                        <button onclick="hapusJurnal(${index})"
+                            class="bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded-lg text-xs shadow">
+                            Hapus
+                        </button>
+                    </td>
+                </tr>
+            `;
+        });
+    }
+    let editGambarBase64 = null;
+
+function previewEditGambar(event) {
+    const file = event.target.files[0];
+    if (!file) return;
+
+    const reader = new FileReader();
+    reader.onload = e => {
+        editGambarBase64 = e.target.result;
+        document.getElementById('editPreviewImage').src = editGambarBase64;
+    };
+    reader.readAsDataURL(file);
+}
+
+
+    /* ===== EDIT ===== */
+function bukaEdit(index) {
+    const data = dummyJurnal[index];
+
+    document.getElementById('editIndex').value = index;
+    document.getElementById('editJudul').value = data.judul;
+    document.getElementById('editDeskripsi').value = data.deskripsi;
+    document.getElementById('editUser').value = data.user;
+
+    editGambarBase64 = data.gambar;
+    document.getElementById('editPreviewImage').src = data.gambar;
+
+    document.getElementById('modalEdit').classList.remove('hidden');
+    document.getElementById('modalEdit').classList.add('flex');
+}
+
+
+function tutupModal() {
+    document.getElementById('modalEdit').classList.add('hidden');
+    document.getElementById('modalEdit').classList.remove('flex');
+}
+
+function simpanEdit() {
+    const index = document.getElementById('editIndex').value;
+
+    dummyJurnal[index] = {
+        judul: document.getElementById('editJudul').value,
+        deskripsi: document.getElementById('editDeskripsi').value,
+        user: document.getElementById('editUser').value,
+        gambar: editGambarBase64
+    };
+
+    tutupModal();
+    renderDummyData();
+}
+
+
+    /* ===== HAPUS ===== */
+function hapusJurnal(index) {
+        if (confirm('Yakin ingin menghapus jurnal ini?')) {
+            dummyJurnal.splice(index, 1);
+            renderDummyData();
         }
-    }
+}
 
-    function tambahJurnal() {
-        const judul = document.getElementById('inputJudul').value.trim();
-        const deskripsi = document.getElementById('inputDeskripsi').value.trim();
-        const userName = document.getElementById('inputUserName').value.trim();
-        
-        if (judul === '' || deskripsi === '' || userName === '') {
-            alert('Semua field harus diisi!');
-            return;
-        }
-
-        if (!currentImage) {
-            alert('Silakan pilih gambar!');
-            return;
-        }
-
-        const tabel = document.getElementById('tabelJurnal');
-        const row = document.createElement('tr');
-        row.className = 'transition-colors';
-        row.id = `jurnal-${jurnalCounter}`;
-        
-        row.innerHTML = `
-            <td class="text-center cell-number">${jurnalCounter}</td>
-            <td class="cell-title">${judul}</td>
-            <td class="cell-description">${deskripsi}</td>
-            <td>
-                <span class="cell-username">${userName}</span>
-            </td>
-            <td class="text-center">
-                <button onclick="lihatGambar('${currentImage}')" class="btn-view-image">
-                    <i class="fas fa-image"></i>
-                </button>
-            </td>
-            <td class="text-center">
-                <div class="btn-group">
-                    <button onclick="editJurnal(${jurnalCounter}, '${judul}', '${deskripsi}', '${userName}', '${currentImage}')" class="btn-edit">
-                        <i class="fas fa-edit"></i>
-                    </button>
-                    <button onclick="hapusJurnal(${jurnalCounter})" class="btn-delete">
-                        <i class="fas fa-trash"></i>
-                    </button>
-                </div>
-            </td>
-        `;
-        tabel.appendChild(row);
-
-        // Reset form
-        document.getElementById('inputJudul').value = '';
-        document.getElementById('inputDeskripsi').value = '';
-        document.getElementById('inputUserName').value = '';
-        document.getElementById('inputGambar').value = '';
-        document.getElementById('labelPilihGambar').classList.remove('hidden');
-        document.getElementById('previewContainer').classList.add('hidden');
-        currentImage = null;
-        jurnalCounter++;
-    }
-
-    function editJurnal(id, judul, deskripsi, userName, gambar) {
-        currentEditId = id;
-        document.getElementById('editIdJurnal').value = id;
-        document.getElementById('editJudul').value = judul;
-        document.getElementById('editDeskripsi').value = deskripsi;
-        document.getElementById('editUserName').value = userName;
-        document.getElementById('editPreviewImage').src = gambar;
-        editImage = gambar;
-        document.getElementById('modalEditJurnal').classList.remove('hidden');
-    }
-
-    function tutupModalEditJurnal() {
-        document.getElementById('modalEditJurnal').classList.add('hidden');
-        currentEditId = null;
-        editImage = null;
-    }
-
-    function simpanEditJurnal() {
-        const judul = document.getElementById('editJudul').value.trim();
-        const deskripsi = document.getElementById('editDeskripsi').value.trim();
-        const userName = document.getElementById('editUserName').value.trim();
-        
-        if (judul === '' || deskripsi === '' || userName === '') {
-            alert('Semua field harus diisi!');
-            return;
-        }
-
-        const row = document.getElementById(`jurnal-${currentEditId}`);
-        if (row) {
-            row.cells[1].textContent = judul;
-            row.cells[1].className = 'cell-title';
-            
-            row.cells[2].textContent = deskripsi;
-            row.cells[2].className = 'cell-description';
-            
-            row.cells[3].innerHTML = `<span class="cell-username">${userName}</span>`;
-            
-            // Update gambar button
-            const imgBtn = row.cells[4].querySelector('button');
-            imgBtn.onclick = () => lihatGambar(editImage);
-            
-            // Update edit button
-            const editBtn = row.cells[5].querySelector('button:first-child');
-            editBtn.onclick = () => editJurnal(currentEditId, judul, deskripsi, userName, editImage);
-        }
-
-        tutupModalEditJurnal();
-    }
-
-    function hapusJurnal(id) {
-        if (confirm('Apakah Anda yakin ingin menghapus jurnal ini?')) {
-            const row = document.getElementById(`jurnal-${id}`);
-            if (row) {
-                row.remove();
-                
-                // Update nomor urut
-                const tbody = document.getElementById('tabelJurnal');
-                const rows = tbody.getElementsByTagName('tr');
-                for (let i = 0; i < rows.length; i++) {
-                    rows[i].cells[0].textContent = i + 1;
-                }
-            }
-        }
-    }
-
-    function lihatGambar(url) {
-        document.getElementById('gambarModal').src = url;
-        document.getElementById('modalLihatGambar').classList.remove('hidden');
-    }
-
-    function tutupModalLihatGambar() {
-        document.getElementById('modalLihatGambar').classList.add('hidden');
-    }
-
-    // Tutup modal edit saat klik di luar
-    document.getElementById('modalEditJurnal').addEventListener('click', function(e) {
-        if (e.target === this) {
-            tutupModalEditJurnal();
-        }
-    });
+    document.addEventListener('DOMContentLoaded', renderDummyData);
 </script>
-@endpush
 
+
+</body>
 @endsection
