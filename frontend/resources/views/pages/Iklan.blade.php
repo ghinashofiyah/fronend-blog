@@ -2,151 +2,111 @@
 
 @section('title', 'Iklan - Portal Blog')
 
+@push('styles')
+<link rel="stylesheet" href="{{ asset('css/iklan.css') }}">
+@endpush
+
 @section('content')
 
-  <!--<style>
-    body {
-      background: #ffffff;
-      min-height: 100vh;
-    }
-    .card-hover {
-      transition: all 0.3s ease;
-    }
-    .card-hover:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 20px 40px rgba(73, 136, 196, 0.3);
-    }
-    .gradient-border::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      height: 4px;
-      background: #4988C4;
-      border-radius: 16px 16px 0 0;
-    }
-    @keyframes slideIn {
-      from { opacity: 0; transform: translateY(20px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-    .animate-slide { animation: slideIn 0.5s ease-out; }
-  </style>-->
-<link rel="stylesheet" href="{{ asset('css/iklan.css')}}">
-</head>
-<body class="font-sans">
-
-<div class="p-6">
+<div class="page-container">
   <!-- Header -->
-  <div class="mb-8 animate-slide">
-    <h1 class="text-5xl font-bold flex items-center gap-4 drop-shadow-lg" style="color: #000000;">
-      <div class="p-4 rounded-2xl shadow-2xl" style="background-color: #ffffff;">
-        <i class="fas fa-ad text-4xl" style="color: #4988C4;"></i>
+  <div class="page-header animate-slide">
+    <h1 class="page-title">
+      <div class="title-icon-wrapper">
+        <i class="fas fa-ad title-icon"></i>
       </div>
       Kelola Iklan
     </h1>
   </div>
 
-  <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 items-stretch">
+  <div class="content-grid">
 
     <!-- FORM TAMBAH IKLAN -->
-    <div class="rounded-2xl shadow-xl card-hover p-8 flex flex-col relative gradient-border animate-slide" style="background-color: #ffffff;">
-      <h2 class="text-3xl font-bold mb-6 flex items-center gap-3" style="color: #4988C4;">
+    <div class="form-card card-hover gradient-border animate-slide">
+      <h2 class="section-title">
         <i class="fas fa-plus-circle"></i>
         Tambah Iklan
       </h2>
 
-      <form id="formTambah" class="flex flex-col flex-1 space-y-6">
-        <div>
-          <label class="block text-sm font-bold mb-3 flex items-center gap-2" style="color: #4988C4;">
-            <i class="fas fa-heading"></i>
-            Judul Iklan
-          </label>
-          <input 
-            type="text" 
-            id="inputJudul"
-            placeholder="Masukkan judul iklan" 
-            class="w-full rounded-xl px-4 py-3 focus:ring-4 outline-none transition-all text-base" 
-            style="border: 2px solid #4988C4; background-color: #ffffff;"
-            onfocus="this.style.boxShadow='0 0 0 4px rgba(73, 136, 196, 0.2)'"
-            onblur="this.style.boxShadow='none'"
-          />
-        </div>
-
-        <div>
-          <label class="block text-sm font-bold mb-3 flex items-center gap-2" style="color: #4988C4;">
-            <i class="fas fa-layer-group"></i>
-            Tipe Iklan
-          </label>
-          <select 
-            id="inputTipe"
-            class="w-full rounded-xl px-4 py-3 focus:ring-4 outline-none transition-all text-base"
-            style="border: 2px solid #4988C4; background-color: #ffffff;"
-            onfocus="this.style.boxShadow='0 0 0 4px rgba(73, 136, 196, 0.2)'"
-            onblur="this.style.boxShadow='none'">
-            <option value="">Pilih Tipe Iklan</option>
-            <option>1:1 Slide</option>
-            <option>3:1 Kanan</option>
-            <option>3:1 Kiri</option>
-            <option>3:1 Tengah</option>
-            <option>1:3 Atas</option>
-            <option>1:3 Tengah</option>
-          </select>
-        </div>
-
-        <div>
-          <label class="block text-sm font-bold mb-3 flex items-center gap-2" style="color: #4988C4;">
-            <i class="fas fa-link"></i>
-            Link URL
-          </label>
-          <input 
-            type="text" 
-            id="inputLink"
-            placeholder="https://example.com" 
-            class="w-full rounded-xl px-4 py-3 focus:ring-4 outline-none transition-all text-base" 
-            style="border: 2px solid #4988C4; background-color: #ffffff;"
-            onfocus="this.style.boxShadow='0 0 0 4px rgba(73, 136, 196, 0.2)'"
-            onblur="this.style.boxShadow='none'"
-          />
-        </div>
-
-        <div>
-          <label class="block text-sm font-bold mb-3 flex items-center gap-2" style="color: #4988C4;">
-            <i class="fas fa-image"></i>
-            Gambar Iklan
-          </label>
-          <div class="relative">
-            <input 
-              type="file" 
-              id="inputGambar" 
-              accept="image/*"
-              class="hidden"
-              onchange="previewGambar(event)"
-            >
-            <label id="labelPilihGambar" for="inputGambar" class="block w-full px-4 py-3 rounded-xl text-base cursor-pointer transition-all text-center font-medium" style="border: 2px solid #4988C4; color: #4988C4; background-color: #ffffff;" onmouseover="this.style.backgroundColor='rgba(73, 136, 196, 0.1)'" onmouseout="this.style.backgroundColor='#ffffff'">
-              <i class="fas fa-cloud-upload-alt text-xl"></i>
-              <span class="ml-2">Pilih gambar</span>
+      <form id="formTambah" class="form-container">
+        <div class="form-fields">
+          <div class="form-group">
+            <label class="form-label label-with-icon">
+              <i class="fas fa-heading"></i>
+              Judul Iklan
             </label>
-            <div id="previewContainer" class="hidden">
-              <div class="relative">
-                <img id="previewImage" class="w-full h-48 object-cover rounded-xl shadow-lg" style="border: 2px solid #4988C4;">
-                <button type="button" onclick="hapusGambar()" class="absolute top-2 right-2 bg-red-500 hover:bg-red-600 text-white rounded-full w-8 h-8 flex items-center justify-center shadow-lg transition-all">
-                  <i class="fas fa-times"></i>
-                </button>
+            <input 
+              type="text" 
+              id="inputJudul"
+              placeholder="Masukkan judul iklan" 
+              class="form-input"
+            />
+          </div>
+
+          <div class="form-group">
+            <label class="form-label label-with-icon">
+              <i class="fas fa-layer-group"></i>
+              Tipe Iklan
+            </label>
+            <select id="inputTipe" class="form-select">
+              <option value="">Pilih Tipe Iklan</option>
+              <option>1:1 Slide</option>
+              <option>3:1 Kanan</option>
+              <option>3:1 Kiri</option>
+              <option>3:1 Tengah</option>
+              <option>1:3 Atas</option>
+              <option>1:3 Tengah</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label label-with-icon">
+              <i class="fas fa-link"></i>
+              Link URL
+            </label>
+            <input 
+              type="text" 
+              id="inputLink"
+              placeholder="https://example.com" 
+              class="form-input"
+            />
+          </div>
+
+          <div class="form-group">
+            <label class="form-label label-with-icon">
+              <i class="fas fa-image"></i>
+              Gambar Iklan
+            </label>
+            <div class="relative">
+              <input 
+                type="file" 
+                id="inputGambar" 
+                accept="image/*"
+                class="file-input-hidden"
+                onchange="previewGambar(event)"
+              >
+              <label id="labelPilihGambar" for="inputGambar" class="file-upload-label">
+                <i class="fas fa-cloud-upload-alt file-upload-icon"></i>
+                <span>Pilih gambar</span>
+              </label>
+              <div id="previewContainer" class="preview-container hidden">
+                <div class="relative">
+                  <img id="previewImage" class="preview-image" alt="Preview">
+                  <button type="button" onclick="hapusGambar()" class="delete-preview-btn">
+                    <i class="fas fa-times"></i>
+                  </button>
+                </div>
               </div>
             </div>
           </div>
         </div>
 
-        <div class="flex-1"></div>
+        <div class="form-spacer"></div>
 
         <button 
           type="button"
           onclick="tambahIklan()" 
-          class="w-full text-white font-bold py-4 rounded-xl transform hover:scale-105 transition-all shadow-lg hover:shadow-2xl text-lg"
-          style="background-color: #4988C4;"
-          onmouseover="this.style.backgroundColor='#3a6ea0'"
-          onmouseout="this.style.backgroundColor='#4988C4'"
+          class="btn-submit"
         >
           <i class="fas fa-paper-plane mr-2"></i>Upload Iklan
         </button>
@@ -154,99 +114,99 @@
     </div>
 
     <!-- TABEL IKLAN -->
-    <div class="rounded-2xl shadow-xl card-hover p-8 lg:col-span-2 flex flex-col relative gradient-border animate-slide" style="animation-delay: 0.1s; background-color: #ffffff;">
-      <h2 class="text-3xl font-bold mb-6 flex items-center gap-3" style="color: #4988C4;">
+    <div class="table-card card-hover table-section gradient-border animate-slide">
+      <h2 class="section-title">
         <i class="fas fa-list"></i>
         Daftar Iklan
       </h2>
 
-      <div class="overflow-y-auto max-h-[600px] rounded-xl shadow-inner" style="border: 2px solid #4988C4;">
-        <table class="min-w-full">
-          <thead class="text-white sticky top-0 shadow-lg" style="background-color: #4988C4;">
+      <div class="table-wrapper">
+        <table class="data-table">
+          <thead>
             <tr>
-              <th class="px-6 py-4 font-bold text-base">No</th>
-              <th class="px-6 py-4 font-bold text-left text-base">Judul</th>
-              <th class="px-6 py-4 font-bold text-base">Tipe</th>
-              <th class="px-6 py-4 font-bold text-base">Link</th>
-              <th class="px-6 py-4 font-bold text-base">Gambar</th>
-              <th class="px-6 py-4 font-bold text-base" colspan="2">Aksi</th>
+              <th>No</th>
+              <th class="text-left">Judul</th>
+              <th>Tipe</th>
+              <th>Link</th>
+              <th>Gambar</th>
+              <th colspan="2">Aksi</th>
             </tr>
           </thead>
           <tbody id="tabelIklan">
-            <tr class="transition-all" style="background-color: #ffffff;" onmouseover="this.style.backgroundColor='rgba(73, 136, 196, 0.1)'" onmouseout="this.style.backgroundColor='#ffffff'">
-              <td class="px-6 py-5 text-center font-semibold text-base" style="border-bottom: 1px solid #4988C4;">1</td>
-              <td class="px-6 py-5 font-semibold text-base" style="border-bottom: 1px solid #4988C4; color: #4988C4;">Pemerintah Resmi Naikkan UMK 2026</td>
-              <td class="px-6 py-5 text-center" style="border-bottom: 1px solid #4988C4;">
-                <span class="text-sm font-bold" style="color: #4988C4;">3:1 Tengah</span>
+            <tr>
+              <td class="text-center cell-number">1</td>
+              <td class="cell-title">Pemerintah Resmi Naikkan UMK 2026</td>
+              <td class="text-center">
+                <span class="cell-type">3:1 Tengah</span>
               </td>
-              <td class="px-6 py-5" style="border-bottom: 1px solid #4988C4;">
-                <a href="https://berita.com/1" target="_blank" class="font-medium flex items-center gap-2 text-sm hover:underline" style="color: #4988C4;">
+              <td>
+                <a href="https://berita.com/1" target="_blank" class="cell-link">
                   <i class="fas fa-external-link-alt"></i>
                   berita.com/1
                 </a>
               </td>
-              <td class="px-6 py-5" style="border-bottom: 1px solid #4988C4;">
-                <img src="https://picsum.photos/seed/1/120/80" class="rounded-lg object-cover shadow-md hover:shadow-xl transition-all w-[140px] h-[90px]" />
+              <td>
+                <img src="https://picsum.photos/seed/1/120/80" class="cell-image" alt="Iklan 1">
               </td>
-              <td class="px-6 py-5 text-center" style="border-bottom: 1px solid #4988C4;">
-                <button onclick="editIklan(this, 'Pemerintah Resmi Naikkan UMK 2026', '3:1 Tengah', 'https://berita.com/1')" class="text-white px-4 py-2 rounded-lg font-semibold shadow-md hover:shadow-lg transition-all" style="background-color: #4988C4;" onmouseover="this.style.backgroundColor='#3a6ea0'" onmouseout="this.style.backgroundColor='#4988C4'">
+              <td class="text-center">
+                <button onclick="editIklan(this, 'Pemerintah Resmi Naikkan UMK 2026', '3:1 Tengah', 'https://berita.com/1')" class="btn-edit">
                   <i class="fas fa-edit"></i>
                 </button>
               </td>
-              <td class="px-6 py-5 text-center" style="border-bottom: 1px solid #4988C4;">
-                <button onclick="hapusIklan(this)" class="text-white px-4 py-2 rounded-lg font-semibold shadow-md hover:shadow-lg transition-all" style="background-color: #dc2626;" onmouseover="this.style.backgroundColor='#b91c1c'" onmouseout="this.style.backgroundColor='#dc2626'">
+              <td class="text-center">
+                <button onclick="hapusIklan(this)" class="btn-delete">
                   <i class="fas fa-trash"></i>
                 </button>
               </td>
             </tr>
-            <tr class="transition-all" style="background-color: #ffffff;" onmouseover="this.style.backgroundColor='rgba(73, 136, 196, 0.1)'" onmouseout="this.style.backgroundColor='#ffffff'">
-              <td class="px-6 py-5 text-center font-semibold text-base" style="border-bottom: 1px solid #4988C4;">2</td>
-              <td class="px-6 py-5 font-semibold text-base" style="border-bottom: 1px solid #4988C4; color: #4988C4;">Harga BBM Terbaru Berlaku Nasional</td>
-              <td class="px-6 py-5 text-center" style="border-bottom: 1px solid #4988C4;">
-                <span class="text-sm font-bold" style="color: #4988C4;">1:1 Slide</span>
+            <tr>
+              <td class="text-center cell-number">2</td>
+              <td class="cell-title">Harga BBM Terbaru Berlaku Nasional</td>
+              <td class="text-center">
+                <span class="cell-type">1:1 Slide</span>
               </td>
-              <td class="px-6 py-5" style="border-bottom: 1px solid #4988C4;">
-                <a href="https://berita.com/2" target="_blank" class="font-medium flex items-center gap-2 text-sm hover:underline" style="color: #4988C4;">
+              <td>
+                <a href="https://berita.com/2" target="_blank" class="cell-link">
                   <i class="fas fa-external-link-alt"></i>
                   berita.com/2
                 </a>
               </td>
-              <td class="px-6 py-5" style="border-bottom: 1px solid #4988C4;">
-                <img src="https://picsum.photos/seed/2/120/80" class="rounded-lg object-cover shadow-md hover:shadow-xl transition-all w-[140px] h-[90px]" />
+              <td>
+                <img src="https://picsum.photos/seed/2/120/80" class="cell-image" alt="Iklan 2">
               </td>
-              <td class="px-6 py-5 text-center" style="border-bottom: 1px solid #4988C4;">
-                <button onclick="editIklan(this, 'Harga BBM Terbaru Berlaku Nasional', '1:1 Slide', 'https://berita.com/2')" class="text-white px-4 py-2 rounded-lg font-semibold shadow-md hover:shadow-lg transition-all" style="background-color: #4988C4;" onmouseover="this.style.backgroundColor='#3a6ea0'" onmouseout="this.style.backgroundColor='#4988C4'">
+              <td class="text-center">
+                <button onclick="editIklan(this, 'Harga BBM Terbaru Berlaku Nasional', '1:1 Slide', 'https://berita.com/2')" class="btn-edit">
                   <i class="fas fa-edit"></i>
                 </button>
               </td>
-              <td class="px-6 py-5 text-center" style="border-bottom: 1px solid #4988C4;">
-                <button onclick="hapusIklan(this)" class="text-white px-4 py-2 rounded-lg font-semibold shadow-md hover:shadow-lg transition-all" style="background-color: #dc2626;" onmouseover="this.style.backgroundColor='#b91c1c'" onmouseout="this.style.backgroundColor='#dc2626'">
+              <td class="text-center">
+                <button onclick="hapusIklan(this)" class="btn-delete">
                   <i class="fas fa-trash"></i>
                 </button>
               </td>
             </tr>
-            <tr class="transition-all" style="background-color: #ffffff;" onmouseover="this.style.backgroundColor='rgba(73, 136, 196, 0.1)'" onmouseout="this.style.backgroundColor='#ffffff'">
-              <td class="px-6 py-5 text-center font-semibold text-base" style="border-bottom: 1px solid #4988C4;">3</td>
-              <td class="px-6 py-5 font-semibold text-base" style="border-bottom: 1px solid #4988C4; color: #4988C4;">Timnas Indonesia Lolos Piala Asia</td>
-              <td class="px-6 py-5 text-center" style="border-bottom: 1px solid #4988C4;">
-                <span class="text-sm font-bold" style="color: #4988C4;">3:1 Kanan</span>
+            <tr>
+              <td class="text-center cell-number">3</td>
+              <td class="cell-title">Timnas Indonesia Lolos Piala Asia</td>
+              <td class="text-center">
+                <span class="cell-type">3:1 Kanan</span>
               </td>
-              <td class="px-6 py-5" style="border-bottom: 1px solid #4988C4;">
-                <a href="https://berita.com/3" target="_blank" class="font-medium flex items-center gap-2 text-sm hover:underline" style="color: #4988C4;">
+              <td>
+                <a href="https://berita.com/3" target="_blank" class="cell-link">
                   <i class="fas fa-external-link-alt"></i>
                   berita.com/3
                 </a>
               </td>
-              <td class="px-6 py-5" style="border-bottom: 1px solid #4988C4;">
-                <img src="https://picsum.photos/seed/3/120/80" class="rounded-lg object-cover shadow-md hover:shadow-xl transition-all w-[140px] h-[90px]" />
+              <td>
+                <img src="https://picsum.photos/seed/3/120/80" class="cell-image" alt="Iklan 3">
               </td>
-              <td class="px-6 py-5 text-center" style="border-bottom: 1px solid #4988C4;">
-                <button onclick="editIklan(this, 'Timnas Indonesia Lolos Piala Asia', '3:1 Kanan', 'https://berita.com/3')" class="text-white px-4 py-2 rounded-lg font-semibold shadow-md hover:shadow-lg transition-all" style="background-color: #4988C4;" onmouseover="this.style.backgroundColor='#3a6ea0'" onmouseout="this.style.backgroundColor='#4988C4'">
+              <td class="text-center">
+                <button onclick="editIklan(this, 'Timnas Indonesia Lolos Piala Asia', '3:1 Kanan', 'https://berita.com/3')" class="btn-edit">
                   <i class="fas fa-edit"></i>
                 </button>
               </td>
-              <td class="px-6 py-5 text-center" style="border-bottom: 1px solid #4988C4;">
-                <button onclick="hapusIklan(this)" class="text-white px-4 py-2 rounded-lg font-semibold shadow-md hover:shadow-lg transition-all" style="background-color: #dc2626;" onmouseover="this.style.backgroundColor='#b91c1c'" onmouseout="this.style.backgroundColor='#dc2626'">
+              <td class="text-center">
+                <button onclick="hapusIklan(this)" class="btn-delete">
                   <i class="fas fa-trash"></i>
                 </button>
               </td>
@@ -259,24 +219,24 @@
 </div>
 
 <!-- MODAL EDIT -->
-<div id="modal" class="fixed inset-0 hidden flex items-center justify-center z-50 p-4" style="background-color: rgba(73, 136, 196, 0.6); backdrop-filter: blur(8px);">
-  <div class="rounded-3xl shadow-2xl w-full max-w-lg animate-slide" style="background-color: #ffffff;">
-    <div class="text-white p-6 rounded-t-3xl" style="background-color: #4988C4;">
-      <h3 class="text-2xl font-bold flex items-center gap-3">
+<div id="modal" class="modal hidden">
+  <div class="modal-content animate-slide">
+    <div class="modal-header">
+      <h3 class="modal-title">
         <i class="fas fa-edit"></i>
         Edit Iklan
       </h3>
     </div>
 
-    <form class="p-8 space-y-5">
-      <div>
-        <label class="block text-sm font-bold mb-3" style="color: #4988C4;">Judul</label>
-        <input id="modalJudul" type="text" class="w-full rounded-xl px-4 py-3 focus:ring-4 outline-none text-base" style="border: 2px solid #4988C4; background-color: #ffffff;" onfocus="this.style.boxShadow='0 0 0 4px rgba(73, 136, 196, 0.2)'" onblur="this.style.boxShadow='none'" />
+    <form class="modal-body modal-form">
+      <div class="form-group">
+        <label class="form-label">Judul</label>
+        <input id="modalJudul" type="text" class="modal-input">
       </div>
 
-      <div>
-        <label class="block text-sm font-bold mb-3" style="color: #4988C4;">Tipe Iklan</label>
-        <select id="modalTipe" class="w-full rounded-xl px-4 py-3 focus:ring-4 outline-none text-base" style="border: 2px solid #4988C4; background-color: #ffffff;" onfocus="this.style.boxShadow='0 0 0 4px rgba(73, 136, 196, 0.2)'" onblur="this.style.boxShadow='none'">
+      <div class="form-group">
+        <label class="form-label">Tipe Iklan</label>
+        <select id="modalTipe" class="modal-select">
           <option>1:1 Slide</option>
           <option>3:1 Kanan</option>
           <option>3:1 Kiri</option>
@@ -286,36 +246,36 @@
         </select>
       </div>
 
-      <div>
-        <label class="block text-sm font-bold mb-3" style="color: #4988C4;">Link</label>
-        <input id="modalLink" type="text" placeholder="https://example.com" class="w-full rounded-xl px-4 py-3 focus:ring-4 outline-none text-base" style="border: 2px solid #4988C4; background-color: #ffffff;" onfocus="this.style.boxShadow='0 0 0 4px rgba(73, 136, 196, 0.2)'" onblur="this.style.boxShadow='none'" />
+      <div class="form-group">
+        <label class="form-label">Link</label>
+        <input id="modalLink" type="text" placeholder="https://example.com" class="modal-input">
       </div>
 
-      <div>
-          <label class="block text-sm font-bold mb-3" style="color: #4988C4;">Gambar</label>
-          <div class="flex items-center gap-3">
-              <input 
-                  type="file" 
-                  id="editInputGambar" 
-                  accept="image/*"
-                  class="hidden"
-                  onchange="previewEditGambar(event)"
-              >
-              <label for="editInputGambar" class="flex-1 px-4 py-3 rounded-xl text-base cursor-pointer transition-all flex items-center justify-center gap-2 font-medium" style="border: 2px solid #4988C4; color: #4988C4; background-color: #ffffff;" onmouseover="this.style.backgroundColor='rgba(73, 136, 196, 0.1)'" onmouseout="this.style.backgroundColor='#ffffff'">
-                  <i class="fas fa-image"></i>
-                  <span>Ganti gambar</span>
-              </label>
-          </div>
-          <div id="editPreviewContainer" class="mt-4">
-              <img id="editPreviewImage" class="w-full h-40 object-cover rounded-xl shadow-lg" style="border: 2px solid #4988C4;">
-          </div>
+      <div class="form-group">
+        <label class="form-label">Gambar</label>
+        <div class="modal-file-wrapper">
+          <input 
+            type="file" 
+            id="editInputGambar" 
+            accept="image/*"
+            class="file-input-hidden"
+            onchange="previewEditGambar(event)"
+          >
+          <label for="editInputGambar" class="modal-file-label">
+            <i class="fas fa-image"></i>
+            <span>Ganti gambar</span>
+          </label>
+        </div>
+        <div id="editPreviewContainer" class="modal-preview-container">
+          <img id="editPreviewImage" class="modal-preview-image" alt="Preview Edit">
+        </div>
       </div>
 
-      <div class="pt-4 flex justify-end gap-3">
-        <button type="button" onclick="closeModal()" class="px-6 py-3 rounded-xl font-semibold transition-all text-base" style="border: 2px solid #4988C4; color: #4988C4; background-color: #ffffff;" onmouseover="this.style.backgroundColor='rgba(73, 136, 196, 0.1)'" onmouseout="this.style.backgroundColor='#ffffff'">
+      <div class="modal-actions">
+        <button type="button" onclick="closeModal()" class="btn-cancel">
           <i class="fas fa-times mr-2"></i>Batal
         </button>
-        <button type="button" onclick="simpanEdit()" class="px-6 py-3 rounded-xl text-white font-semibold shadow-lg transition-all text-base" style="background-color: #4988C4;" onmouseover="this.style.backgroundColor='#3a6ea0'" onmouseout="this.style.backgroundColor='#4988C4'">
+        <button type="button" onclick="simpanEdit()" class="btn-save">
           <i class="fas fa-check mr-2"></i>Simpan
         </button>
       </div>
@@ -324,16 +284,15 @@
 </div>
 
 <!-- Success Modal -->
-<div id="successModal" class="hidden fixed inset-0 flex items-center justify-center z-50" style="background-color: rgba(73, 136, 196, 0.6); backdrop-filter: blur(8px);">
-  <div class="rounded-3xl shadow-2xl max-w-md w-full m-4 text-center p-10" style="background-color: #ffffff;">
-    <div class="text-7xl mb-6" style="color: #4988C4;">✓</div>
-    <h3 class="text-2xl font-bold mb-2" id="successMessage" style="color: #4988C4;">Berhasil!</h3>
-    <button onclick="tutupSuccess()" class="mt-6 text-white px-10 py-3 rounded-xl font-semibold hover:shadow-lg transition-all text-base" style="background-color: #4988C4;" onmouseover="this.style.backgroundColor='#3a6ea0'" onmouseout="this.style.backgroundColor='#4988C4'">
-      OK
-    </button>
+<div id="successModal" class="success-modal hidden">
+  <div class="success-modal-content">
+    <div class="success-icon">✓</div>
+    <h3 class="success-message" id="successMessage">Berhasil!</h3>
+    <button onclick="tutupSuccess()" class="btn-success-ok">OK</button>
   </div>
 </div>
 
+@push('scripts')
 <script>
   let currentRow = null;
 
@@ -372,33 +331,29 @@
     const rowCount = tbody.rows.length + 1;
 
     const tr = document.createElement('tr');
-    tr.className = 'transition-all';
-    tr.style.backgroundColor = '#ffffff';
-    tr.onmouseover = function() { this.style.backgroundColor = 'rgba(73, 136, 196, 0.1)'; };
-    tr.onmouseout = function() { this.style.backgroundColor = '#ffffff'; };
     
     tr.innerHTML = `
-      <td class="px-6 py-5 text-center font-semibold text-base" style="border-bottom: 1px solid #4988C4;">${rowCount}</td>
-      <td class="px-6 py-5 font-semibold text-base" style="border-bottom: 1px solid #4988C4; color: #4988C4;">${judul}</td>
-      <td class="px-6 py-5 text-center" style="border-bottom: 1px solid #4988C4;">
-        <span class="text-sm font-bold" style="color: #4988C4;">${tipe}</span>
+      <td class="text-center cell-number">${rowCount}</td>
+      <td class="cell-title">${judul}</td>
+      <td class="text-center">
+        <span class="cell-type">${tipe}</span>
       </td>
-      <td class="px-6 py-5" style="border-bottom: 1px solid #4988C4;">
-        <a href="${link}" target="_blank" class="font-medium flex items-center gap-2 text-sm hover:underline" style="color: #4988C4;">
+      <td>
+        <a href="${link}" target="_blank" class="cell-link">
           <i class="fas fa-external-link-alt"></i>
           ${link.substring(0, 30)}...
         </a>
       </td>
-      <td class="px-6 py-5" style="border-bottom: 1px solid #4988C4;">
-        <img src="${URL.createObjectURL(gambar)}" class="rounded-lg object-cover shadow-md hover:shadow-xl transition-all w-[140px] h-[90px]" />
+      <td>
+        <img src="${URL.createObjectURL(gambar)}" class="cell-image" alt="Iklan ${rowCount}">
       </td>
-      <td class="px-6 py-5 text-center" style="border-bottom: 1px solid #4988C4;">
-        <button onclick="editIklan(this, '${judul}', '${tipe}', '${link}')" class="text-white px-4 py-2 rounded-lg font-semibold shadow-md hover:shadow-lg transition-all" style="background-color: #4988C4;" onmouseover="this.style.backgroundColor='#3a6ea0'" onmouseout="this.style.backgroundColor='#4988C4'">
+      <td class="text-center">
+        <button onclick="editIklan(this, '${judul}', '${tipe}', '${link}')" class="btn-edit">
           <i class="fas fa-edit"></i>
         </button>
       </td>
-      <td class="px-6 py-5 text-center" style="border-bottom: 1px solid #4988C4;">
-        <button onclick="hapusIklan(this)" class="text-white px-4 py-2 rounded-lg font-semibold shadow-md hover:shadow-lg transition-all" style="background-color: #dc2626;" onmouseover="this.style.backgroundColor='#b91c1c'" onmouseout="this.style.backgroundColor='#dc2626'">
+      <td class="text-center">
+        <button onclick="hapusIklan(this)" class="btn-delete">
           <i class="fas fa-trash"></i>
         </button>
       </td>
@@ -419,7 +374,6 @@
     document.getElementById('modalTipe').value = tipe;
     document.getElementById('modalLink').value = link;
     
-    // Show current image in modal
     const imgSrc = currentRow.cells[4].querySelector('img').src;
     document.getElementById('editPreviewImage').src = imgSrc;
   }
@@ -453,28 +407,21 @@
       return;
     }
     
-    // Update judul
-    currentRow.cells[1].innerHTML = `<span class="font-semibold text-base" style="color: #4988C4;">${judul}</span>`;
-    
-    // Update tipe
-    currentRow.cells[2].innerHTML = `<span class="text-sm font-bold" style="color: #4988C4;">${tipe}</span>`;
-    
-    // Update link
-    currentRow.cells[3].innerHTML = `<a href="${link}" target="_blank" class="font-medium flex items-center gap-2 text-sm hover:underline" style="color: #4988C4;">
+    currentRow.cells[1].innerHTML = `<span class="cell-title">${judul}</span>`;
+    currentRow.cells[2].innerHTML = `<span class="cell-type">${tipe}</span>`;
+    currentRow.cells[3].innerHTML = `<a href="${link}" target="_blank" class="cell-link">
       <i class="fas fa-external-link-alt"></i>
       ${link.substring(0, 30)}...
     </a>`;
     
-    // Update gambar jika ada file baru
     if (gambarFile) {
       const reader = new FileReader();
       reader.onload = function(e) {
-        currentRow.cells[4].innerHTML = `<img src="${e.target.result}" class="rounded-lg object-cover shadow-md hover:shadow-xl transition-all w-[140px] h-[90px]" />`;
+        currentRow.cells[4].innerHTML = `<img src="${e.target.result}" class="cell-image" alt="Iklan">`;
       };
       reader.readAsDataURL(gambarFile);
     }
     
-    // Update onclick handler for edit button (now in cell 5)
     currentRow.cells[5].querySelector('button').setAttribute('onclick', `editIklan(this, '${judul}', '${tipe}', '${link}')`);
     
     closeModal();
@@ -486,7 +433,6 @@
       const row = btn.closest('tr');
       row.remove();
       
-      // Update nomor urut
       const tbody = document.getElementById('tabelIklan');
       const rows = tbody.getElementsByTagName('tr');
       for (let i = 0; i < rows.length; i++) {
@@ -510,5 +456,6 @@
     if (e.target === this) closeModal();
   });
 </script>
+@endpush
 
 @endsection
