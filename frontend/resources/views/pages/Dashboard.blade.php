@@ -111,6 +111,102 @@
                                 2 jam lalu
                             </td>
                         </tr>
+                        <tr class="border-b transition hover:bg-gradient-to-r hover:from-gray-100 hover:to-gray-200">
+                            <td class="p-4 text-center font-semibold text-gray-600">2</td>
+                            <td class="p-4">
+                                <img src="https://via.placeholder.com/80x60"
+                                     class="w-[80px] h-[60px] rounded-lg object-cover shadow">
+                            </td>
+                            <td class="p-4 font-medium text-gray-800 leading-relaxed">
+                                Indonesia Resmi Masuk Era 5G dengan Peluncuran Jaringan Nasional
+                            </td>
+                            <td class="p-4 text-center">
+                                <img src="https://via.placeholder.com/40"
+                                     class="w-10 h-10 rounded-full object-cover border-2 border-[#4988C4] mx-auto">
+                            </td>
+                            <td class="p-4 font-medium text-gray-600">Admin Dua</td>
+                            <td class="p-4 text-center">
+                                <span class="px-4 py-1 rounded-full text-xs font-semibold text-white
+                                             bg-gradient-to-r from-[#4988C4] to-[#4988C4]">
+                                    Published
+                                </span>
+                            </td>
+                            <td class="p-4 text-center text-gray-500 text-xs font-medium">
+                                5 jam lalu
+                            </td>
+                        </tr>
+                        <tr class="border-b transition hover:bg-gradient-to-r hover:from-gray-100 hover:to-gray-200">
+                            <td class="p-4 text-center font-semibold text-gray-600">3</td>
+                            <td class="p-4">
+                                <img src="https://via.placeholder.com/80x60"
+                                     class="w-[80px] h-[60px] rounded-lg object-cover shadow">
+                            </td>
+                            <td class="p-4 font-medium text-gray-800 leading-relaxed">
+                                Harga Bitcoin Tembus Rekor Baru di Awal Tahun 2025
+                            </td>
+                            <td class="p-4 text-center">
+                                <img src="https://via.placeholder.com/40"
+                                     class="w-10 h-10 rounded-full object-cover border-2 border-[#4988C4] mx-auto">
+                            </td>
+                            <td class="p-4 font-medium text-gray-600">Admin Satu</td>
+                            <td class="p-4 text-center">
+                                <span class="px-4 py-1 rounded-full text-xs font-semibold text-white
+                                             bg-gradient-to-r from-green-500 to-green-600">
+                                    Published
+                                </span>
+                            </td>
+                            <td class="p-4 text-center text-gray-500 text-xs font-medium">
+                                1 hari lalu
+                            </td>
+                        </tr>
+                        <tr class="border-b transition hover:bg-gradient-to-r hover:from-gray-100 hover:to-gray-200">
+                            <td class="p-4 text-center font-semibold text-gray-600">4</td>
+                            <td class="p-4">
+                                <img src="https://via.placeholder.com/80x60"
+                                     class="w-[80px] h-[60px] rounded-lg object-cover shadow">
+                            </td>
+                            <td class="p-4 font-medium text-gray-800 leading-relaxed">
+                                Startup Fintech Lokal Raih Pendanaan Seri B USD 50 Juta
+                            </td>
+                            <td class="p-4 text-center">
+                                <img src="https://via.placeholder.com/40"
+                                     class="w-10 h-10 rounded-full object-cover border-2 border-[#4988C4] mx-auto">
+                            </td>
+                            <td class="p-4 font-medium text-gray-600">Admin Tiga</td>
+                            <td class="p-4 text-center">
+                                <span class="px-4 py-1 rounded-full text-xs font-semibold text-white
+                                             bg-gradient-to-r from-yellow-500 to-yellow-600">
+                                    Draft
+                                </span>
+                            </td>
+                            <td class="p-4 text-center text-gray-500 text-xs font-medium">
+                                2 hari lalu
+                            </td>
+                        </tr>
+                        <tr class="border-b transition hover:bg-gradient-to-r hover:from-gray-100 hover:to-gray-200">
+                            <td class="p-4 text-center font-semibold text-gray-600">5</td>
+                            <td class="p-4">
+                                <img src="https://via.placeholder.com/80x60"
+                                     class="w-[80px] h-[60px] rounded-lg object-cover shadow">
+                            </td>
+                            <td class="p-4 font-medium text-gray-800 leading-relaxed">
+                                AI Generatif Mulai Digunakan di Berbagai Sektor Industri Indonesia
+                            </td>
+                            <td class="p-4 text-center">
+                                <img src="https://via.placeholder.com/40"
+                                     class="w-10 h-10 rounded-full object-cover border-2 border-[#4988C4] mx-auto">
+                            </td>
+                            <td class="p-4 font-medium text-gray-600">Admin Dua</td>
+                            <td class="p-4 text-center">
+                                <span class="px-4 py-1 rounded-full text-xs font-semibold text-white
+                                             bg-gradient-to-r from-[#4988C4] to-[#4988C4]">
+                                    Published
+                                </span>
+                            </td>
+                            <td class="p-4 text-center text-gray-500 text-xs font-medium">
+                                3 hari lalu
+                            </td>
+                        </tr>
                     </tbody>
                 </table>
             </div>
@@ -135,6 +231,62 @@
                         <span class="px-3 py-1 rounded-full bg-[#4988C4] font-semibold">POLITIK</span>
                         <span>👁 15.3k</span>
                         <span>3 hari lalu</span>
+                    </div>
+                </div>
+
+                <div class="mb-4 p-4 rounded-xl
+                            bg-gradient-to-r from-[#4988C4] to-[#4988C4]
+                            border-l-4 border-[#4988C4]
+                            transition-all hover:translate-x-1 hover:shadow-lg">
+                    <div class="text-white font-semibold text-sm mb-2 leading-relaxed">
+                        Indonesia Raih Medali Emas di Ajang Olahraga Asia
+                    </div>
+                    <div class="flex justify-between items-center gap-2 text-white text-xs flex-wrap">
+                        <span class="px-3 py-1 rounded-full bg-[#4988C4] font-semibold">OLAHRAGA</span>
+                        <span>👁 14.1k</span>
+                        <span>1 hari lalu</span>
+                    </div>
+                </div>
+
+                <div class="mb-4 p-4 rounded-xl
+                            bg-gradient-to-r from-[#4988C4] to-[#4988C4]
+                            border-l-4 border-[#4988C4]
+                            transition-all hover:translate-x-1 hover:shadow-lg">
+                    <div class="text-white font-semibold text-sm mb-2 leading-relaxed">
+                        Breakthrough Teknologi Panel Surya Meningkatkan Efisiensi 40%
+                    </div>
+                    <div class="flex justify-between items-center gap-2 text-white text-xs flex-wrap">
+                        <span class="px-3 py-1 rounded-full bg-[#4988C4] font-semibold">TEKNOLOGI</span>
+                        <span>👁 13.7k</span>
+                        <span>2 hari lalu</span>
+                    </div>
+                </div>
+
+                <div class="mb-4 p-4 rounded-xl
+                            bg-gradient-to-r from-[#4988C4] to-[#4988C4]
+                            border-l-4 border-[#4988C4]
+                            transition-all hover:translate-x-1 hover:shadow-lg">
+                    <div class="text-white font-semibold text-sm mb-2 leading-relaxed">
+                        Rupiah Menguat Terhadap Dolar AS di Awal Februari
+                    </div>
+                    <div class="flex justify-between items-center gap-2 text-white text-xs flex-wrap">
+                        <span class="px-3 py-1 rounded-full bg-[#4988C4] font-semibold">EKONOMI</span>
+                        <span>👁 12.4k</span>
+                        <span>4 hari lalu</span>
+                    </div>
+                </div>
+
+                <div class="p-4 rounded-xl
+                            bg-gradient-to-r from-[#4988C4] to-[#4988C4]
+                            border-l-4 border-[#4988C4]
+                            transition-all hover:translate-x-1 hover:shadow-lg">
+                    <div class="text-white font-semibold text-sm mb-2 leading-relaxed">
+                        Festival Film Indonesia Hadirkan 50 Film Pilihan Terbaik
+                    </div>
+                    <div class="flex justify-between items-center gap-2 text-white text-xs flex-wrap">
+                        <span class="px-3 py-1 rounded-full bg-[#4988C4] font-semibold">HIBURAN</span>
+                        <span>👁 11.9k</span>
+                        <span>5 hari lalu</span>
                     </div>
                 </div>
             </div>

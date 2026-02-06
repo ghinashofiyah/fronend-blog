@@ -6,9 +6,9 @@
 <div class="min-h-screen bg-white p-6">
 
     <!-- HEADER -->
-    <div class="mb-8 animate-slide">
-        <h1 class="flex items-center gap-4 text-4xl font-bold text-black drop-shadow-lg">
-            <span class="p-4 bg-white rounded-xl shadow-xl">
+    <div class="mb-8">
+        <h1 class="flex items-center gap-4 text-4xl font-bold text-black">
+            <span class="p-4 bg-white rounded-xl shadow">
                 <i class="fas fa-ad text-[#4988C4] text-3xl"></i>
             </span>
             Kelola Iklan
@@ -19,33 +19,31 @@
     <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
 
         <!-- FORM -->
-        <div class="relative bg-white rounded-2xl shadow-xl p-8 animate-slide">
+        <div class="relative bg-white rounded-2xl shadow p-8">
             <div class="absolute top-0 left-0 w-full h-1 bg-[#4988C4] rounded-t-2xl"></div>
 
             <h2 class="text-2xl font-bold text-[#4988C4] mb-6">Tambah Iklan</h2>
 
             <form class="flex flex-col gap-6">
                 <input id="inputJudul" type="text" placeholder="Judul"
-                    class="w-full rounded-xl border-2 border-[#4988C4] px-4 py-3">
+                    class="rounded-xl border-2 border-[#4988C4] px-4 py-3">
 
                 <select id="inputTipe"
-                    class="w-full rounded-xl border-2 border-[#4988C4] px-4 py-3">
+                    class="rounded-xl border-2 border-[#4988C4] px-4 py-3">
                     <option value="">Pilih Tipe</option>
                     <option>1:1 Slide</option>
                     <option>3:1 Kanan</option>
                     <option>3:1 Kiri</option>
-                    <option>3:1 Tengah</option>
-                    <option>1:3 Atas</option>
-                    <option>1:3 Tengah</option>
                 </select>
 
                 <input id="inputLink" type="text" placeholder="Link URL"
-                    class="w-full rounded-xl border-2 border-[#4988C4] px-4 py-3">
+                    class="rounded-xl border-2 border-[#4988C4] px-4 py-3">
 
                 <input id="inputGambar" type="file" accept="image/*" class="hidden"
                     onchange="previewGambar(event)">
                 <label for="inputGambar"
-                    class="cursor-pointer text-center border-2 border-[#4988C4] rounded-xl py-3 text-[#4988C4]">
+                    class="cursor-pointer text-center border-2 border-[#4988C4]
+                           rounded-xl py-3 text-[#4988C4]">
                     Pilih Gambar
                 </label>
 
@@ -61,10 +59,31 @@
         </div>
 
         <!-- TABLE -->
-        <div class="lg:col-span-2 bg-white rounded-2xl shadow-xl p-8 animate-slide">
+        <div class="lg:col-span-2 bg-white rounded-2xl shadow p-8 relative">
             <div class="absolute top-0 left-0 w-full h-1 bg-[#4988C4] rounded-t-2xl"></div>
 
-            <h2 class="text-2xl font-bold text-[#4988C4] mb-6">Daftar Iklan</h2>
+            <!-- TITLE + SEARCH (MODEL KAPSUL) -->
+            <div class="flex items-center justify-between mb-6 flex-wrap gap-4">
+                <h2 class="text-2xl font-bold text-[#4988C4]">Daftar Iklan</h2>
+
+                <!-- SEARCH SESUAI GAMBAR -->
+                <div class="relative w-72">
+                    <span class="absolute left-5 top-1/2 -translate-y-1/2 text-[#4988C4] text-lg">
+                        <i class="fas fa-search"></i>
+                    </span>
+                    <input
+                        type="text"
+                        id="searchIklan"
+                        placeholder="Cari jurnal..."
+                        onkeyup="filterIklan()"
+                        class="w-full pl-12 pr-5 py-3
+                               rounded-full
+                               border-2 border-[#4988C4]
+                               text-gray-700
+                               focus:outline-none
+                               focus:ring-2 focus:ring-[#4988C4]/40">
+                </div>
+            </div>
 
             <div class="overflow-auto border-2 border-[#4988C4] rounded-xl">
                 <table class="w-full">
@@ -83,16 +102,17 @@
             </div>
 
             <!-- PAGINATION -->
-            <div class="flex items-center justify-between mt-6 px-2">
-                <span id="pageInfo" class="text-gray-500 font-medium"></span>
+            <div class="flex items-center justify-between mt-6">
+                <span id="pageInfo" class="text-gray-500"></span>
 
                 <div class="flex gap-3">
-                    <button id="prevBtn" onclick="prevPage()"
+                    <button onclick="prevPage()"
                         class="px-5 py-2 rounded-xl border border-gray-300">
                         Prev
                     </button>
-                    <button id="nextBtn" onclick="nextPage()"
-                        class="px-5 py-2 rounded-xl border border-[#4988C4] text-[#4988C4] hover:bg-blue-50">
+                    <button onclick="nextPage()"
+                        class="px-5 py-2 rounded-xl border border-[#4988C4]
+                               text-[#4988C4] hover:bg-blue-50">
                         Next
                     </button>
                 </div>
@@ -111,12 +131,18 @@ let dataIklan = Array.from({ length: 20 }, (_, i) => ({
     gambar: 'https://via.placeholder.com/150'
 }));
 
-/* ================= PAGINATION CONFIG ================= */
 let currentPage = 1;
 const perPage = 10;
+let keyword = '';
 
-/* ================= INIT ================= */
 document.addEventListener('DOMContentLoaded', renderTable);
+
+/* ================= SEARCH ================= */
+function filterIklan() {
+    keyword = document.getElementById('searchIklan').value.toLowerCase();
+    currentPage = 1;
+    renderTable();
+}
 
 /* ================= PREVIEW ================= */
 function previewGambar(e) {
@@ -124,7 +150,7 @@ function previewGambar(e) {
     previewContainer.classList.remove('hidden');
 }
 
-/* ================= ADD DATA ================= */
+/* ================= ADD ================= */
 function tambahIklan() {
     dataIklan.push({
         judul: inputJudul.value,
@@ -132,23 +158,24 @@ function tambahIklan() {
         link: inputLink.value,
         gambar: URL.createObjectURL(inputGambar.files[0])
     });
-
-    currentPage = Math.ceil(dataIklan.length / perPage);
     renderTable();
 }
 
-/* ================= RENDER TABLE ================= */
+/* ================= RENDER ================= */
 function renderTable() {
     tabelIklan.innerHTML = '';
 
-    const totalPage = Math.ceil(dataIklan.length / perPage);
-    const start = (currentPage - 1) * perPage;
-    const end = start + perPage;
+    const filtered = dataIklan.filter(d =>
+        d.judul.toLowerCase().includes(keyword) ||
+        d.tipe.toLowerCase().includes(keyword)
+    );
 
-    dataIklan.slice(start, end).forEach((d, i) => {
-        const row = document.createElement('tr');
-        row.className = 'hover:bg-blue-50';
-        row.innerHTML = `
+    const totalPage = Math.ceil(filtered.length / perPage) || 1;
+    const start = (currentPage - 1) * perPage;
+
+    filtered.slice(start, start + perPage).forEach((d, i) => {
+        tabelIklan.innerHTML += `
+        <tr class="hover:bg-blue-50">
             <td class="p-4 text-center">${start + i + 1}</td>
             <td class="p-4 font-semibold text-[#4988C4]">${d.judul}</td>
             <td class="p-4 text-center font-bold text-[#4988C4]">${d.tipe}</td>
@@ -156,25 +183,13 @@ function renderTable() {
                 <a href="${d.link}" target="_blank" class="underline">${d.link}</a>
             </td>
             <td class="p-4 text-center">
-                <img src="${d.gambar}" class="w-20 h-20 object-cover rounded-lg mx-auto">
+                <img src="${d.gambar}" class="w-20 h-20 object-cover rounded mx-auto">
             </td>
-            <td class="p-4 text-center relative">
-                <button onclick="toggleMenu(this)" class="text-2xl text-[#4988C4]">⋮</button>
-                <div class="hidden absolute right-4 top-10 bg-white border border-[#4988C4] rounded-xl shadow-xl w-32">
-                    <button class="block w-full px-4 py-2 hover:bg-blue-50">Edit</button>
-                    <button onclick="hapusData(${start + i})"
-                        class="block w-full px-4 py-2 hover:bg-red-50 text-red-600">
-                        Hapus
-                    </button>
-                </div>
-            </td>
-        `;
-        tabelIklan.appendChild(row);
+            <td class="p-4 text-center">⋮</td>
+        </tr>`;
     });
 
     pageInfo.textContent = `Hal ${currentPage} / ${totalPage}`;
-    prevBtn.disabled = currentPage === 1;
-    nextBtn.disabled = currentPage === totalPage;
 }
 
 /* ================= PAGINATION ================= */
@@ -191,19 +206,6 @@ function nextPage() {
         currentPage++;
         renderTable();
     }
-}
-
-/* ================= DELETE ================= */
-function hapusData(index) {
-    dataIklan.splice(index, 1);
-    const totalPage = Math.ceil(dataIklan.length / perPage);
-    if (currentPage > totalPage) currentPage = totalPage || 1;
-    renderTable();
-}
-
-/* ================= MENU ================= */
-function toggleMenu(btn) {
-    btn.nextElementSibling.classList.toggle('hidden');
 }
 </script>
 @endsection

@@ -8,15 +8,39 @@
 <div class="p-6 max-w-7xl mx-auto">
 
     <!-- HEADER -->
-    <div class="flex justify-between items-center mb-8">
+    <div class="flex justify-between items-center mb-8 flex-wrap gap-4">
         <h1 class="text-4xl font-bold text-gray-800 flex items-center gap-3">
             <i class="fas fa-users-cog text-[#4988C4]"></i>
             Kelola Admin
         </h1>
-        <button onclick="openTambahModal()"
-            class="gradient-bg text-white px-6 py-3 rounded-xl font-semibold shadow-lg hover:shadow-xl transition">
-            <i class="fas fa-plus-circle mr-2"></i>Tambah Admin
-        </button>
+
+        <div class="flex items-center gap-4 flex-wrap">
+
+            <!-- SEARCH ADMIN (MODEL KAPSUL) -->
+            <div class="relative w-72">
+                <span class="absolute left-5 top-1/2 -translate-y-1/2 text-[#4988C4] text-lg">
+                    <i class="fas fa-search"></i>
+                </span>
+                <input
+                    type="text"
+                    id="searchInput"
+                    placeholder="Cari admin..."
+                    onkeyup="filterAdmin()"
+                    class="w-full pl-12 pr-5 py-3
+                           rounded-full
+                           border-2 border-[#4988C4]
+                           text-gray-700
+                           focus:outline-none
+                           focus:ring-2 focus:ring-[#4988C4]/40">
+            </div>
+
+            <!-- TAMBAH ADMIN -->
+            <button onclick="openTambahModal()"
+                class="gradient-bg text-white px-6 py-3 rounded-xl font-semibold shadow-lg hover:shadow-xl transition">
+                <i class="fas fa-plus-circle mr-2"></i>Tambah Admin
+            </button>
+
+        </div>
     </div>
 
     <!-- TABLE -->
@@ -65,17 +89,30 @@ const admins = Array.from({ length: 15 }, (_, i) => ({
     initials: `A${i + 1}`
 }));
 
+let filteredAdmins = [...admins];
+
 /* ================= PAGINATION ================= */
 let currentPage = 1;
 const perPage = 10;
 
+/* ================= SEARCH ================= */
+function filterAdmin() {
+    const keyword = searchInput.value.toLowerCase();
+    filteredAdmins = admins.filter(a =>
+        a.nama.toLowerCase().includes(keyword) ||
+        a.email.toLowerCase().includes(keyword)
+    );
+    currentPage = 1;
+    renderTable();
+}
+
+/* ================= RENDER TABLE ================= */
 function renderTable() {
     const tbody = document.getElementById('tabelAdmin');
     tbody.innerHTML = '';
 
     const start = (currentPage - 1) * perPage;
-    const end = start + perPage;
-    const data = admins.slice(start, end);
+    const data = filteredAdmins.slice(start, start + perPage);
 
     data.forEach((admin, index) => {
         tbody.innerHTML += `
@@ -96,7 +133,6 @@ function renderTable() {
                 </span>
             </td>
 
-            <!-- AKSI DROPDOWN -->
             <td class="py-4 px-4 text-center relative">
                 <button onclick="toggleDropdown(${admin.id}, event)"
                     class="text-2xl font-bold text-gray-500 hover:text-[#4988C4]">
@@ -116,52 +152,35 @@ function renderTable() {
                     </button>
                 </div>
             </td>
-        </tr>
-        `;
+        </tr>`;
     });
 
     updatePagination();
 }
 
 function updatePagination() {
-    const totalPage = Math.ceil(admins.length / perPage);
-    document.getElementById('pageInfo').innerText =
-        `Hal ${currentPage} / ${totalPage}`;
-
-    prevBtn.disabled = currentPage === 1;
-    nextBtn.disabled = currentPage === totalPage;
+    const totalPage = Math.ceil(filteredAdmins.length / perPage) || 1;
+    pageInfo.innerText = `Hal ${currentPage} / ${totalPage}`;
 }
 
-function prevPage() {
-    if (currentPage > 1) {
-        currentPage--;
-        renderTable();
-    }
-}
-
-function nextPage() {
-    const totalPage = Math.ceil(admins.length / perPage);
-    if (currentPage < totalPage) {
-        currentPage++;
-        renderTable();
-    }
+/* ================= PAGINATION BTN ================= */
+function prevPage(){ if(currentPage>1){currentPage--;renderTable();}}
+function nextPage(){
+    const totalPage = Math.ceil(filteredAdmins.length / perPage);
+    if(currentPage<totalPage){currentPage++;renderTable();}
 }
 
 /* ================= DROPDOWN ================= */
 function toggleDropdown(id, event) {
     event.stopPropagation();
-
     document.querySelectorAll('[id^="dropdown-"]').forEach(el => {
         if (el.id !== `dropdown-${id}`) el.classList.add('hidden');
     });
-
     document.getElementById(`dropdown-${id}`).classList.toggle('hidden');
 }
 
 window.addEventListener('click', () => {
-    document.querySelectorAll('[id^="dropdown-"]').forEach(el => {
-        el.classList.add('hidden');
-    });
+    document.querySelectorAll('[id^="dropdown-"]').forEach(el => el.classList.add('hidden'));
 });
 
 /* ================= INIT ================= */

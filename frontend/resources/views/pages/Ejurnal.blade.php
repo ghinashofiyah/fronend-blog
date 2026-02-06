@@ -102,9 +102,26 @@
         <!-- TABLE -->
         <div class="lg:col-span-8 h-[650px] bg-white border-2 border-[#4988C4] rounded-xl shadow-xl p-8 flex flex-col transition-all hover:-translate-y-1 hover:shadow-2xl">
 
-            <h2 class="text-3xl font-bold text-[#4988C4] border-b-4 border-[#4988C4] pb-4 mb-6">
-                <i class="fas fa-table mr-2"></i>Tabel Jurnal
-            </h2>
+            <div class="flex items-center justify-between border-b-4 border-[#4988C4] pb-4 mb-6">
+    
+    <h2 class="text-3xl font-bold text-[#4988C4] flex items-center gap-2">
+        <i class="fas fa-table"></i>
+        Tabel Jurnal
+    </h2>
+
+    <!-- SEARCH -->
+    <div class="relative w-64">
+        <input
+            type="text"
+            placeholder="Cari jurnal..."
+            onkeyup="filterJurnal()"
+            class="w-full pl-10 pr-4 py-2 rounded-xl border-2 border-[#4988C4]
+                   focus:outline-none focus:ring-4 focus:ring-[#4988C4]/20">
+        <i class="fas fa-search absolute left-3 top-1/2 -translate-y-1/2 text-[#4988C4]"></i>
+    </div>
+
+</div>
+
 
             <div class="flex-1 overflow-x-auto overflow-y-auto border-2 border-[#4988C4] rounded-xl">
                 <table class="min-w-full text-sm">
@@ -122,6 +139,29 @@
                         <!-- ISI TETAP SAMA DENGAN PUNYA KAMU -->
                     </tbody>
                 </table>
+                <!-- PAGINATION -->
+<div class="flex items-center justify-between mt-4 px-2">
+
+    <span id="pageInfo" class="text-sm font-semibold text-gray-600">
+        Hal 1 / 1
+    </span>
+
+    <div class="flex gap-2">
+        <button onclick="prevPage()"
+            class="px-4 py-2 rounded-xl border border-gray-300
+                   hover:bg-gray-100 transition font-semibold">
+            Prev
+        </button>
+
+        <button onclick="nextPage()"
+            class="px-4 py-2 rounded-xl border border-gray-300
+                   hover:bg-gray-100 transition font-semibold">
+            Next
+        </button>
+    </div>
+
+</div>
+
             </div>
         </div>
     </div>
@@ -187,125 +227,224 @@
     </div>
 </div>
 
+<!-- MODAL DELETE -->
+<div id="modalDelete"
+     class="fixed inset-0 bg-black/50 hidden items-center justify-center z-50">
+    <div class="bg-white rounded-xl w-full max-w-md p-6 shadow-2xl animate-fadeIn">
+        <h3 class="text-xl font-bold text-red-600 mb-4">
+            <i class="fas fa-trash mr-2"></i>Konfirmasi Hapus
+        </h3>
+
+        <p class="text-gray-700 mb-6">
+            Apakah anda yakin menghapus jurnal ini?
+        </p>
+
+        <div class="flex justify-end gap-3">
+            <button onclick="closeDeleteModal()"
+                class="px-4 py-2 rounded-lg border font-semibold hover:bg-gray-100">
+                Batal
+            </button>
+            <button onclick="confirmDelete()"
+                class="px-4 py-2 rounded-lg bg-red-600 text-white font-semibold hover:bg-red-700">
+                Hapus
+            </button>
+        </div>
+    </div>
+</div>
+
+
 <script>
-    let dummyJurnal = [
-        {
-            judul: 'Pemanfaatan AI dalam Pendidikan',
-            deskripsi: 'Studi tentang penggunaan Artificial Intelligence untuk meningkatkan kualitas pembelajaran.',
-            user: 'Admin',
-            gambar: 'https://picsum.photos/200/120?random=1'
-        },
-        {
-            judul: 'Sistem Informasi Akademik',
-            deskripsi: 'Perancangan sistem informasi akademik berbasis web.',
-            user: 'Ghina',
-            gambar: 'https://picsum.photos/200/120?random=2'
-        },
-        {
-            judul: 'Keamanan Data Digital',
-            deskripsi: 'Analisis metode enkripsi untuk melindungi data digital.',
-            user: 'Operator',
-            gambar: 'https://picsum.photos/200/120?random=3'
-        },
-        {
-            judul: 'UI/UX Modern dengan Tailwind',
-            deskripsi: 'Penerapan Tailwind CSS untuk desain antarmuka modern.',
-            user: 'Developer',
-            gambar: 'https://picsum.photos/200/120?random=4'
-        }
-    ];
+/* ================= SEARCH ================= */
+let searchKeyword = '';
 
-    function renderDummyData() {
-        const tabelJurnal = document.getElementById('tabelJurnal');
-        tabelJurnal.innerHTML = '';
-
-        dummyJurnal.forEach((item, index) => {
-            tabelJurnal.innerHTML += `
-                <tr class="border-b hover:bg-gray-50 transition">
-                    <td class="p-4 text-center font-semibold">${index + 1}</td>
-                    <td class="p-4 font-medium">${item.judul}</td>
-                    <td class="p-4">${item.deskripsi}</td>
-                    <td class="p-4">${item.user}</td>
-                    <td class="p-4 text-center">
-                        <img src="${item.gambar}"
-                             class="w-20 h-12 object-cover rounded-lg mx-auto shadow">
-                    </td>
-                    <td class="p-4 text-center space-x-2">
-                        <button onclick="bukaEdit(${index})"
-                            class="bg-yellow-400 hover:bg-yellow-500 text-white px-3 py-1 rounded-lg text-xs shadow">
-                            Edit
-                        </button>
-                        <button onclick="hapusJurnal(${index})"
-                            class="bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded-lg text-xs shadow">
-                            Hapus
-                        </button>
-                    </td>
-                </tr>
-            `;
-        });
-    }
-    let editGambarBase64 = null;
-
-function previewEditGambar(event) {
-    const file = event.target.files[0];
-    if (!file) return;
-
-    const reader = new FileReader();
-    reader.onload = e => {
-        editGambarBase64 = e.target.result;
-        document.getElementById('editPreviewImage').src = editGambarBase64;
-    };
-    reader.readAsDataURL(file);
+function filterJurnal() {
+    searchKeyword = event.target.value.toLowerCase();
+    currentPage = 1;
+    renderDummyData();
 }
 
+/* ================= PAGINATION ================= */
+let currentPage = 1;
+const rowsPerPage = 10;
 
-    /* ===== EDIT ===== */
-function bukaEdit(index) {
+/* ================= DUMMY DATA ================= */
+let dummyJurnal = [
+    {
+        judul: 'Pemanfaatan AI dalam Pendidikan',
+        deskripsi: 'Studi penerapan Artificial Intelligence pada sistem pembelajaran.',
+        user: 'Admin',
+        gambar: 'https://picsum.photos/200/120?random=1'
+    },
+    {
+        judul: 'Sistem Informasi Akademik Berbasis Web',
+        deskripsi: 'Perancangan sistem akademik modern berbasis web.',
+        user: 'Ghina',
+        gambar: 'https://picsum.photos/200/120?random=2'
+    },
+    ...Array.from({ length: 48 }, (_, i) => ({
+        judul: `Penelitian Teknologi Informasi #${i + 3}`,
+        deskripsi: `Pembahasan mendalam topik teknologi ke-${i + 3}.`,
+        user: ['Admin', 'Editor', 'User'][i % 3],
+        gambar: `https://picsum.photos/200/120?random=${i + 3}`
+    }))
+];
+
+/* ================= RENDER TABLE ================= */
+function renderDummyData() {
+    const tabel = document.getElementById('tabelJurnal');
+    tabel.innerHTML = '';
+
+    /* FILTER DATA (INI KUNCI SEARCH) */
+    const filteredData = dummyJurnal.filter(item =>
+        item.judul.toLowerCase().includes(searchKeyword) ||
+        item.deskripsi.toLowerCase().includes(searchKeyword) ||
+        item.user.toLowerCase().includes(searchKeyword)
+    );
+
+    const totalPages = Math.ceil(filteredData.length / rowsPerPage) || 1;
+    const start = (currentPage - 1) * rowsPerPage;
+    const end = start + rowsPerPage;
+
+    filteredData.slice(start, end).forEach((item, index) => {
+        tabel.innerHTML += `
+        <tr class="border-b hover:bg-gray-50">
+            <td class="p-4 text-center">${start + index + 1}</td>
+            <td class="p-4">${item.judul}</td>
+            <td class="p-4">${item.deskripsi}</td>
+            <td class="p-4">${item.user}</td>
+            <td class="p-4 text-center">
+                <img src="${item.gambar}" class="w-20 h-12 object-cover rounded mx-auto">
+            </td>
+
+            <!-- AKSI -->
+<td class="p-4 text-center relative overflow-visible">
+    <button onclick="toggleAksi(${start + index}, event)"
+        class="w-8 h-8 flex items-center justify-center rounded-full hover:bg-gray-200">
+        <i class="fas fa-ellipsis-v"></i>
+    </button>
+
+    <div id="aksi-${start + index}"
+        class="hidden absolute right-6 top-10 w-32 bg-white
+               border rounded-lg shadow-xl z-[9999]">
+        <button onclick="editJurnal(${start + index})"
+            class="w-full px-4 py-2 text-left text-sm hover:bg-gray-100 flex gap-2">
+            <i class="fas fa-edit text-blue-500"></i> Edit
+        </button>
+        <button onclick="openDeleteModal(${start + index})"
+            class="w-full px-4 py-2 text-left text-sm hover:bg-gray-100 flex gap-2 text-red-600">
+            <i class="fas fa-trash"></i> Hapus
+        </button>
+    </div>
+</td>
+
+        </tr>
+        `;
+    });
+
+    updatePagination(totalPages);
+}
+
+/* ================= DROPDOWN AKSI ================= */
+function toggleAksi(index, e) {
+    e.stopPropagation();
+
+    document.querySelectorAll('[id^="aksi-"]').forEach(el => {
+        if (el.id !== `aksi-${index}`) el.classList.add('hidden');
+    });
+
+    document.getElementById(`aksi-${index}`).classList.toggle('hidden');
+}
+
+document.addEventListener('click', () => {
+    document.querySelectorAll('[id^="aksi-"]').forEach(el => {
+        el.classList.add('hidden');
+    });
+});
+
+
+/* ================= EDIT ================= */
+function editJurnal(index) {
     const data = dummyJurnal[index];
 
-    document.getElementById('editIndex').value = index;
-    document.getElementById('editJudul').value = data.judul;
-    document.getElementById('editDeskripsi').value = data.deskripsi;
-    document.getElementById('editUser').value = data.user;
+    editIndex.value = index;
+    editJudul.value = data.judul;
+    editDeskripsi.value = data.deskripsi;
+    editUser.value = data.user;
+    editPreviewImage.src = data.gambar;
 
-    editGambarBase64 = data.gambar;
-    document.getElementById('editPreviewImage').src = data.gambar;
-
-    document.getElementById('modalEdit').classList.remove('hidden');
-    document.getElementById('modalEdit').classList.add('flex');
+    modalEdit.classList.remove('hidden');
+    modalEdit.classList.add('flex');
 }
 
-
-function tutupModal() {
-    document.getElementById('modalEdit').classList.add('hidden');
-    document.getElementById('modalEdit').classList.remove('flex');
-}
-
+/* ================= SIMPAN EDIT ================= */
 function simpanEdit() {
-    const index = document.getElementById('editIndex').value;
-
-    dummyJurnal[index] = {
-        judul: document.getElementById('editJudul').value,
-        deskripsi: document.getElementById('editDeskripsi').value,
-        user: document.getElementById('editUser').value,
-        gambar: editGambarBase64
-    };
-
+    const i = editIndex.value;
+    dummyJurnal[i].judul = editJudul.value;
+    dummyJurnal[i].deskripsi = editDeskripsi.value;
+    dummyJurnal[i].user = editUser.value;
     tutupModal();
     renderDummyData();
 }
 
-
-    /* ===== HAPUS ===== */
+/* ================= DELETE ================= */
 function hapusJurnal(index) {
-        if (confirm('Yakin ingin menghapus jurnal ini?')) {
-            dummyJurnal.splice(index, 1);
-            renderDummyData();
-        }
+    if (confirm('Yakin ingin menghapus jurnal ini?')) {
+        dummyJurnal.splice(index, 1);
+        renderDummyData();
+    }
 }
 
-    document.addEventListener('DOMContentLoaded', renderDummyData);
+/* ================= MODAL ================= */
+function tutupModal() {
+    modalEdit.classList.add('hidden');
+    modalEdit.classList.remove('flex');
+}
+
+/* ================= PAGINATION ================= */
+function nextPage() {
+    if (currentPage < Math.ceil(dummyJurnal.length / rowsPerPage)) {
+        currentPage++;
+        renderDummyData();
+    }
+}
+function prevPage() {
+    if (currentPage > 1) {
+        currentPage--;
+        renderDummyData();
+    }
+}
+function updatePagination(total) {
+    pageInfo.innerText = `Hal ${currentPage} / ${total}`;
+}
+
+/* ================= INIT ================= */
+document.addEventListener('DOMContentLoaded', renderDummyData);
+
+let deleteIndex = null;
+
+function openDeleteModal(index) {
+    deleteIndex = index;
+    modalDelete.classList.remove('hidden');
+    modalDelete.classList.add('flex');
+}
+
+function closeDeleteModal() {
+    modalDelete.classList.add('hidden');
+    modalDelete.classList.remove('flex');
+    deleteIndex = null;
+}
+
+function confirmDelete() {
+    if (deleteIndex !== null) {
+        dummyJurnal.splice(deleteIndex, 1);
+        renderDummyData();
+        closeDeleteModal();
+    }
+}
+
 </script>
+
+
 
 
 </body>
