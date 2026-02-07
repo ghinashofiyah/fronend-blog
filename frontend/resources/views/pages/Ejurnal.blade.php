@@ -254,8 +254,30 @@
 
 
 <script>
+let selectedImage = null;
+let editSelectedImage = null;
 /* ================= SEARCH ================= */
 let searchKeyword = '';
+function tambahJurnal() {
+    if (!inputJudul.value || !inputDeskripsi.value || !inputUserName.value || !selectedImage) {
+        alert('Semua data dan gambar wajib diisi!');
+        return;
+    }
+
+    dummyJurnal.unshift({
+        judul: inputJudul.value,
+        deskripsi: inputDeskripsi.value,
+        user: inputUserName.value,
+        gambar: selectedImage
+    });
+
+    inputJudul.value = '';
+    inputDeskripsi.value = '';
+    inputUserName.value = '';
+    hapusGambar();
+
+    renderDummyData();
+}
 
 function filterJurnal() {
     searchKeyword = event.target.value.toLowerCase();
@@ -324,8 +346,8 @@ function renderDummyData() {
     </button>
 
     <div id="aksi-${start + index}"
-        class="hidden absolute right-6 top-10 w-32 bg-white
-               border rounded-lg shadow-xl z-[9999]">
+        class="hidden fixed w-32 bg-white border rounded-lg shadow-xl z-[9999]">
+
         <button onclick="editJurnal(${start + index})"
             class="w-full px-4 py-2 text-left text-sm hover:bg-gray-100 flex gap-2">
             <i class="fas fa-edit text-blue-500"></i> Edit
@@ -379,12 +401,22 @@ function editJurnal(index) {
 /* ================= SIMPAN EDIT ================= */
 function simpanEdit() {
     const i = editIndex.value;
+
     dummyJurnal[i].judul = editJudul.value;
     dummyJurnal[i].deskripsi = editDeskripsi.value;
     dummyJurnal[i].user = editUser.value;
+
+    if (editSelectedImage) {
+        dummyJurnal[i].gambar = editSelectedImage;
+    }
+
+    editSelectedImage = null;
+    document.getElementById('editGambar').value = '';
+
     tutupModal();
     renderDummyData();
 }
+
 
 /* ================= DELETE ================= */
 function hapusJurnal(index) {
@@ -440,6 +472,41 @@ function confirmDelete() {
         renderDummyData();
         closeDeleteModal();
     }
+}
+/* ================= PREVIEW GAMBAR TAMBAH ================= */
+function previewGambar(event) {
+    const file = event.target.files[0];
+    if (!file) return;
+
+    const reader = new FileReader();
+    reader.onload = function (e) {
+        selectedImage = e.target.result; // BASE64
+        previewImage.src = selectedImage;
+        previewContainer.classList.remove('hidden');
+        labelPilihGambar.classList.add('hidden');
+    };
+    reader.readAsDataURL(file);
+}
+/* ================= PREVIEW GAMBAR EDIT ================= */
+function previewEditGambar(event) {
+    const file = event.target.files[0];
+    if (!file) return;
+
+    const reader = new FileReader();
+    reader.onload = function (e) {
+        editSelectedImage = e.target.result; // BASE64
+        document.getElementById('editPreviewImage').src = editSelectedImage;
+    };
+    reader.readAsDataURL(file);
+}
+
+
+
+function hapusGambar() {
+    selectedImage = null;
+    document.getElementById('inputGambar').value = '';
+    document.getElementById('previewContainer').classList.add('hidden');
+    document.getElementById('labelPilihGambar').classList.remove('hidden');
 }
 
 </script>
