@@ -27,4 +27,11 @@ class BlogController extends Controller
         dd($request->all());
         // return redirect()->route('blog.list');
     }
+
+    public function edit($id)
+{
+    $blog = Blog::findOrFail($id);
+    return view('pages.Editblog', compact('blog'));
+}
+
 }

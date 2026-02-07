@@ -17,6 +17,12 @@ Route::view('/iklan','pages.Iklan');
 Route::view('/ejurnal','pages.Ejurnal');
 Route::view('/admin','pages.Admin');
 
+Route::get('/blog/edit/{id}', [BlogController::class, 'edit'])
+     ->name('blog.edit');
+
+Route::put('/blog/update/{id}', [BlogController::class, 'update'])
+     ->name('blog.update');
+
 // Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
 Route::get('/blog/tambah', [BlogController::class, 'create'])->name('blog.tambah');
 Route::get('/blog/list', [BlogController::class, 'index'])->name('blog.list');
