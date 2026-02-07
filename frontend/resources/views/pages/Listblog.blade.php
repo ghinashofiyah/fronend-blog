@@ -25,7 +25,7 @@
                               focus:outline-none focus:ring-2 focus:ring-[#4988C4]/40">
             </div>
 
-            <!-- TAMBAH BLOG -->
+            <!-- TAMBAH BLOG (TIDAK DIHILANGKAN) -->
             <a href="{{ route('blog.tambah') }}"
                class="px-8 py-3 bg-[#4988C4] text-white font-semibold rounded-xl
                       shadow-lg shadow-blue-500/40
@@ -60,15 +60,36 @@
             <span id="pageInfo" class="text-gray-500"></span>
 
             <div class="flex gap-3">
-                <button onclick="prevPage()"
-                        class="px-6 py-2 border rounded-xl">
+                <button onclick="prevPage()" class="px-6 py-2 border rounded-xl">
                     Prev
                 </button>
-                <button onclick="nextPage()"
-                        class="px-6 py-2 border border-[#4988C4] text-[#4988C4] rounded-xl">
+                <button onclick="nextPage()" class="px-6 py-2 border border-[#4988C4] text-[#4988C4] rounded-xl">
                     Next
                 </button>
             </div>
+        </div>
+    </div>
+</div>
+
+<!-- ================= POPUP HAPUS (REUSABLE) ================= -->
+<div id="popupHapus"
+     class="fixed inset-0 bg-black/50 hidden z-50 flex items-center justify-center">
+
+    <div class="bg-white rounded-2xl p-6 w-full max-w-sm text-center animate-scale">
+        <h2 class="text-xl font-bold mb-2 text-gray-800">Konfirmasi Hapus</h2>
+        <p id="popupText" class="text-gray-600 mb-6">
+            Yakin ingin menghapus data ini?
+        </p>
+
+        <div class="flex justify-center gap-4">
+            <button onclick="closePopupHapus()"
+                    class="px-6 py-2 rounded-xl border">
+                Batal
+            </button>
+            <button id="popupHapusBtn"
+                    class="px-6 py-2 rounded-xl bg-red-600 text-white">
+                Hapus
+            </button>
         </div>
     </div>
 </div>
@@ -76,7 +97,7 @@
 
 @push('scripts')
 <script>
-/* ================= DATA ================= */
+/* ================= DATA (TIDAK DIUBAH) ================= */
 const blogs = [
     {id:1,foto:'https://picsum.photos/80?1',judul:'Belajar Laravel dari Nol',penulis:'Admin',kategori:'Programming',status:'publish'},
     {id:2,foto:'https://picsum.photos/80?2',judul:'Mengenal MVC pada Laravel',penulis:'Admin',kategori:'Framework',status:'draft'},
@@ -95,10 +116,27 @@ const blogs = [
     {id:15,foto:'https://picsum.photos/80?15',judul:'Struktur Project Laravel',penulis:'Editor',kategori:'Framework',status:'publish'}
 ];
 
-
 let currentPage = 1;
 let searchKeyword = '';
 const perPage = 10;
+let deleteCallback = null;
+
+/* ================= POPUP ================= */
+function openPopupHapus(callback, text = 'Yakin ingin menghapus data ini?'){
+    deleteCallback = callback;
+    popupText.innerText = text;
+    popupHapus.classList.remove('hidden');
+}
+
+function closePopupHapus(){
+    popupHapus.classList.add('hidden');
+    deleteCallback = null;
+}
+
+popupHapusBtn.onclick = () => {
+    if(deleteCallback) deleteCallback();
+    closePopupHapus();
+};
 
 /* ================= SEARCH ================= */
 function filterBlog(){
@@ -135,7 +173,7 @@ function renderTable(){
             </td>
             <td class="px-4 py-4 capitalize">${blog.status}</td>
 
-            <!-- AKSI -->
+            <!-- AKSI (EDIT TIDAK DIHILANGKAN) -->
             <td class="px-4 py-4 relative">
                 <button onclick="toggleMenu(${blog.id})"
                         class="w-8 h-8 rounded-full hover:bg-gray-200 flex items-center justify-center">
@@ -172,14 +210,15 @@ function toggleMenu(id){
     document.getElementById(`menu-${id}`).classList.toggle('hidden');
 }
 
-/* ================= DELETE ================= */
+/* ================= DELETE (PAKAI POPUP) ================= */
 function hapusBlog(id){
-    if(!confirm('Yakin ingin menghapus blog ini?')) return;
-    const index = blogs.findIndex(b => b.id === id);
-    if(index !== -1){
-        blogs.splice(index, 1);
-        renderTable();
-    }
+    openPopupHapus(() => {
+        const index = blogs.findIndex(b => b.id === id);
+        if(index !== -1){
+            blogs.splice(index, 1);
+            renderTable();
+        }
+    }, 'Yakin ingin menghapus blog ini?');
 }
 
 /* ================= PAGINATION ================= */
