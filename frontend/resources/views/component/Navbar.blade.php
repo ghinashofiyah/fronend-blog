@@ -2,61 +2,64 @@
     <div class="navbar-brand">
         <span class="app-name">Portal Berita</span>
 
-        <button class="toggle-btn" id="toggleBtn" onclick="toggleSidebar()">
-            <i class="fas fa-chevron-left" id="toggleIcon"></i>
+        <button class="toggle-btn" onclick="toggleSidebar()">
+            <i class="fas fa-chevron-left"></i>
         </button>
     </div>
 
-    <div class="user-dropdown" id="userDropdown" onclick="toggleDropdown()">
-        
+    {{-- USER DROPDOWN --}}
+    <div class="user-dropdown" onclick="toggleDropdown()">
+
         <div class="user-avatar">
-            {{ substr(Auth::user()->name ?? 'SA', 0, 2) }}
+            {{ substr(session('user.name', 'SA'), 0, 2) }}
         </div>
-        
-        <span class="user-name">{{ Auth::user()->name ?? 'Super Admin' }}</span>
-        
+
+        <span class="user-name">
+            {{ session('user.name', 'Super Admin') }}
+        </span>
+
         <span class="dropdown-arrow">
             <i class="fas fa-chevron-down"></i>
         </span>
 
         <div class="dropdown-menu" id="dropdownMenu">
 
-            <a href="" class="dropdown-item">
+            <a href="#" class="dropdown-item">
                 <i class="fas fa-user"></i>
                 <span>Profile</span>
             </a>
 
             <hr class="dropdown-divider">
 
-            <a href="#" class="dropdown-item text-danger" 
+            {{-- LOGOUT --}}
+            <a href="#"
+               class="dropdown-item text-danger"
                onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                 <i class="fas fa-power-off"></i>
                 <span>Logout</span>
             </a>
 
-            <form id="logout-form" action="" method="POST" class="d-none">
+            {{-- FORM LOGOUT (WAJIB ADA) --}}
+            <form id="logout-form"
+                  action="{{ route('logout') }}"
+                  method="POST"
+                  style="display:none;">
                 @csrf
             </form>
+
         </div>
     </div>
 </nav>
 
 <script>
     function toggleDropdown() {
-        const menu = document.getElementById('dropdownMenu');
-        menu.classList.toggle('show');
+        document.getElementById('dropdownMenu').classList.toggle('show');
     }
 
-    // Menutup dropdown jika klik di luar
-    window.onclick = function(event) {
-        if (!event.target.closest('.user-dropdown')) {
-            var dropdowns = document.getElementsByClassName("dropdown-menu");
-            for (var i = 0; i < dropdowns.length; i++) {
-                var openDropdown = dropdowns[i];
-                if (openDropdown.classList.contains('show')) {
-                    openDropdown.classList.remove('show');
-                }
-            }
+    // Tutup dropdown jika klik di luar
+    window.addEventListener('click', function (e) {
+        if (!e.target.closest('.user-dropdown')) {
+            document.getElementById('dropdownMenu').classList.remove('show');
         }
-    }
+    });
 </script>

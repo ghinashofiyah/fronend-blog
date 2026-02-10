@@ -8,6 +8,20 @@ use App\Http\Controllers\IklanController;
 use App\Http\Controllers\EJurnalController;
 use App\Http\Controllers\AdminController;
 
+
+use App\Http\Controllers\AuthController;
+
+Route::get('/login', function () {
+    return view('component.Login');
+})->name('login');
+
+Route::post('/login', [AuthController::class, 'login']);
+Route::post('/logout', function () {
+    session()->flush();
+    return redirect('/login');
+})->name('logout');
+
+
 Route::view('/','pages.Dashboard');
 // Route::view('/blog/list','pages.Listblog') ->name('blog.list');
 // Route::view('/blog','pages.blog') ->name('blog.store');
