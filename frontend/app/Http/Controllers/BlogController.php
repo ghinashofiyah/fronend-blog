@@ -28,9 +28,38 @@ class BlogController extends Controller
         // return redirect()->route('blog.list');
     }
 
+//     public function edit($id)
+// {
+//     $blog = Blog::findOrFail($id);
+//     return view('pages.Editblog', compact('blog'));
+// }
+
     public function edit($id)
 {
-    $blog = Blog::findOrFail($id);
+    $json = '[
+        {
+            "id": 1,
+            "judul": "Judul Blog Pertama",
+            "kategori": "Teknologi",
+            "konten": "Isi konten blog pertama",
+            "gambar": "https://picsum.photos/seed/blog1/600/400"
+        },
+        {
+            "id": 2,
+            "judul": "Judul Blog Kedua",
+            "kategori": "Edukasi",
+            "konten": "Isi konten blog kedua",
+            "gambar": "https://picsum.photos/seed/blog2/600/400"
+        }
+    ]';
+
+    $blogs = collect(json_decode($json, true));
+    $blog = $blogs->firstWhere('id', (int)$id);
+
+    if (!$blog) {
+        abort(404);
+    }
+
     return view('pages.Editblog', compact('blog'));
 }
 

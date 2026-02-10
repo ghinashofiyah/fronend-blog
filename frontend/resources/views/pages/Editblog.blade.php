@@ -17,7 +17,7 @@
     </div>
 
     <!-- FORM -->
-    <form action="{{ route('blog.update', $blog->id) }}"
+    <form action="#"
           method="POST"
           enctype="multipart/form-data"
           class="bg-white rounded-2xl p-8 shadow-lg border border-gray-200">
@@ -31,11 +31,11 @@
                 Judul Blog
             </label>
             <input type="text"
-                   name="judul"
-                   value="{{ old('judul', $blog->judul) }}"
-                   class="w-full px-4 py-3 rounded-xl border
-                          focus:ring-2 focus:ring-[#4988C4] outline-none"
-                   required>
+       name="judul"
+       value="{{ old('judul', $blog['judul']) }}"
+       class="w-full px-4 py-3 rounded-xl border"
+       required>
+
         </div>
 
         <!-- KATEGORI -->
@@ -43,22 +43,17 @@
             <label class="block mb-2 font-semibold text-gray-700">
                 Kategori
             </label>
-            <select name="kategori"
-                    class="w-full px-4 py-3 rounded-xl border
-                           focus:ring-2 focus:ring-[#4988C4] outline-none">
-                <option value="Edukasi"
-                    {{ $blog->kategori == 'Edukasi' ? 'selected' : '' }}>
-                    Edukasi
-                </option>
-                <option value="Teknologi"
-                    {{ $blog->kategori == 'Teknologi' ? 'selected' : '' }}>
-                    Teknologi
-                </option>
-                <option value="Berita"
-                    {{ $blog->kategori == 'Berita' ? 'selected' : '' }}>
-                    Berita
-                </option>
-            </select>
+            <select name="kategori" class="w-full px-4 py-3 rounded-xl border">
+    <option value="Edukasi"
+        {{ $blog['kategori'] === 'Edukasi' ? 'selected' : '' }}>
+        Edukasi
+    </option>
+    <option value="Teknologi"
+        {{ $blog['kategori'] === 'Teknologi' ? 'selected' : '' }}>
+        Teknologi
+    </option>
+</select>
+
         </div>
 
         <!-- FOTO -->
@@ -67,10 +62,11 @@
                 Foto Blog
             </label>
 
-            @if ($blog->foto)
-                <img src="{{ asset('storage/' . $blog->foto) }}"
-                     class="w-32 h-32 object-cover rounded-xl shadow mb-4">
+            @if (!empty($blog['gambar']))
+                <img src="{{ $blog['gambar'] }}"
+                    class="w-32 h-32 object-cover rounded-xl shadow mb-4">
             @endif
+
 
             <input type="file"
                    name="foto"
@@ -82,11 +78,10 @@
             <label class="block mb-2 font-semibold text-gray-700">
                 Isi Blog
             </label>
-            <textarea name="konten"
-                      rows="6"
-                      class="w-full px-4 py-3 rounded-xl border
-                             focus:ring-2 focus:ring-[#4988C4] outline-none"
-                      required>{{ old('konten', $blog->konten) }}</textarea>
+            <textarea name="konten" rows="6"
+          class="w-full px-4 py-3 rounded-xl border"
+          required>{{ old('konten', $blog['konten']) }}</textarea>
+
         </div>
 
         <!-- STATUS -->
@@ -96,12 +91,10 @@
             </label>
             <select name="status"
                     class="w-full px-4 py-3 rounded-xl border">
-                <option value="publish"
-                    {{ $blog->status == 'publish' ? 'selected' : '' }}>
+                <option value="publish">
                     Publish
                 </option>
-                <option value="draft"
-                    {{ $blog->status == 'draft' ? 'selected' : '' }}>
+                <option value="draft">
                     Draft
                 </option>
             </select>
