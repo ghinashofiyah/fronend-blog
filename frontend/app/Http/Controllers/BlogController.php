@@ -4,16 +4,36 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Http;
+
 
 class BlogController extends Controller
 {
-    public function index()
-    {
-        $blogs = [
-            (object) ['id' => 1, 'judul' => 'Judul Blog 1', 'penulis' => 'Penulis 1', 'kategori' => 'Tutorial', 'status' => 'published'],
-        ]; // Fetch blog posts from the database or model
-        return view('pages.Listblog', compact('blogs'));
+public function index()
+{
+    $apiUrl = env('API_BASE_URL') . 'beritas';
+
+    try {
+        $response = Http::timeout(10)->get($apiUrl);
+
+        if ($response->failed()) {
+            throw new \Exception("Gagal mengambil data dari API. Status: " . $response->status());
+        }
+
+        $result = $response->json();
+        $beritas = $result['data'] ?? [];
+
+        return view('pages.Listblog', ['blogs' => $beritas]);
+
+    } catch (\Exception $e) {
+
+        // Debug sementara (opsional)
+        // dd($e->getMessage());
+
+        return view('pages.Listblog', ['blogs' => []]);
     }
+}
+
 
     
     public function create()
